@@ -1,0 +1,146 @@
+
+<!-- quick view start -->
+<div class="quick-view modal fade in" id="quick-view">
+<div class="container">
+<div class="row">
+  <div id="view-gallery" class="owl-carousel product-slider owl-theme">
+    <?php $c = 0; $act = '';?>
+    <?php if (count($store->productos)>0): ?>
+    <?php for ($x=$start; $x <  $limit; $x++): ?>
+    <!-- single product start -->
+    <div class="col-xs-12" >
+      <div class="d-table">
+        <div class="d-tablecell">
+          <div class="modal-dialog">
+            <div class="main-view modal-content">
+              <div class="modal-footer" data-dismiss="modal">
+                <span><i class="fa fa-times" aria-hidden="true"></i></span>
+              </div>
+              <div class="row">
+
+                <div class="col-xs-12 col-sm-5">
+                  <div class="quick-image">
+                    <div class="single-quick-image tab-content text-center">
+                      <?php if (count($store->productos[$x]->imgs)>0): ?>
+                        <?php for ($n=0; $n < count($store->productos[$x]->imgs); $n++): ?>
+                          <?php $active = ($n==0) ? 'active' : '' ; ?>
+                          <div class="tab-pane  fade in <?= $active ?>" id="sin-pro-<?= 2*($c)+$n ?>">
+                            <img src="<?= $store->productos[$x]->imgs[$n] ?>" alt="" />
+                          </div>
+                      <?php endfor ?>
+                    <?php else: ?>
+                      <div class="tab-pane fade in active" id="sin-pro-<?= 2*($c) ?>">
+                        <img src="views/img/products/1.jpg" alt="" />
+                      </div>
+                      <div class="tab-pane fade in" id="sin-pro-<?= 2*($c)+1 ?>">
+                        <img src="views/img/products/2.jpg" alt="" />
+                      </div>
+                    <?php endif ?>
+                    </div>
+                    <div class="quick-thumb">
+                      <div class="nav nav-tabs">
+                        <ul>
+                          <?php if (count($store->productos[$x]->imgs)>0) : ?>
+                            <?php for ($m=0; $m < count($store->productos[$x]->imgs); $m++): ?>
+                                <li><a data-toggle="tab" href="#sin-pro-<?= 2*($c)+$m ?>"> <img src="<?= $store->productos[$x]->imgs[$m] ?>" alt="quick view" /> </a></li>
+                          <?php endfor ?>
+                          <?php $c++; ?>
+                        <?php else: ?>
+                          <li><a data-toggle="tab" href="#sin-pro-<?= 2*($c) ?>"> <img src="views/img/products/1.jpg" alt="quick view" /> </a></li>
+                          <li><a data-toggle="tab" href="#sin-pro-<?= 2*($c)+1 ?>"> <img src="views/img/products/2.jpg" alt="quick view" /> </a></li>
+                          <?php $c++; ?>
+                        <?php endif ?>
+
+
+                        </ul>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-xs-12 col-sm-7">
+                  <div class="quick-right">
+                    <div class="quick-right-text">
+                      <h3><strong><?=$store->productos[$x]->titulo.' - '.$store->productos[$x]->marca?></strong></h3>
+                      <div class="rating">
+                        <?php for ($s=0; $s < 5; $s++): ?>
+                          <?php if ($store->productos[$x]->rating[0] > $s) : ?>
+                              <i class="fa fa-star" style="color:gold;"></i>
+                          <?php else: ?>
+                            <i class="fa fa-star-o" style="color: #aaa;"></i>
+                          <?php endif ?>
+                        <?php endfor ?>
+                        <?php $s = ($store->productos[$x]->rating[1] == 1) ? '' : 's' ;?>
+                        <a href="#"><?= $store->productos[$x]->rating[1] ?> Reseña<?= $s ?></a>
+                        <a href="#">Agrega tu reseña</a>
+                      </div>
+                      <div class="amount">
+                        <h4><?= Articulo::dar_precio($store->productos[$x]->precio) ?></h4>
+                      </div>
+                      <p class="justify"><?= $store->productos[$x]->descripcion[1] ?></p>
+                      <div class="row m-p-b">
+                        <div class="col-sm-12 col-md-6">
+                          <div class="por-dse responsive-strok clearfix">
+                            <ul><?php $d = ($store->productos[$x]->stock[0]) ? 'En inventario ' : 'No disponible' ; ?>
+                              <li><span>Disponible</span><strong>:</strong> <?= $d ?></li>
+                              <li><span>Category</span><strong>:</strong> <a href="#">Men</a> <a href="#">Fashion</a> <a href="#">Shirt</a></li>
+                            </ul>
+                          </div>
+                        </div>
+                        <div class="col-sm-12 col-md-6">
+                          <div class="por-dse color">
+                            <ul>
+                              <li><span>color</span><strong>:</strong> <a href="#">Red</a> <a href="#">Green</a> <a href="#">Blue</a> <a href="#">Orange</a></li>
+                              <li><span>size</span><strong>:</strong>  <a href="#">SL</a> <a href="#">SX</a> <a href="#">M</a> <a href="#">XL</a></li>
+                              <li><span>tag</span><strong>:</strong> <a href="#">Men</a> <a href="#">Fashion</a> <a href="#">Shirt</a></li>
+                            </ul>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="dse-btn">
+                        <div class="row">
+                          <div class="col-sm-12 col-md-6">
+                            <div class="por-dse clearfix">
+                              <ul>
+                                <li class="share-btn qty clearfix"><span>Cantidad</span>
+                                  <form action="#" method="POST">
+                                    <div class="plus-minus">
+                                      <a class="dec qtybutton">-</a>
+                                      <input type="text" value="02" name="qtybutton" class="plus-minus-box">
+                                      <a class="inc qtybutton">+</a>
+                                    </div>
+                                  </form>
+                                </li>
+                              </ul>
+                            </div>
+                          </div>
+                          <div class="col-sm-12 col-md-6">
+                            <div class="por-dse clearfix responsive-othre">
+                              <ul class="other-btn">
+                                <li><a href="#"><i class="fa fa-heart"></i></a></li>
+                                <li><a href="#"><i class="fa fa-refresh"></i></a></li>
+                                <li><a href="#"><i class="fa fa-envelope-o"></i></a></li>
+                              </ul>
+                            </div>
+                            <div class="por-dse add-to">
+                              <a href="#">Agregar al carrito</a>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- single product end -->
+  <?php endfor ?>
+  <?php endif ?>
+  </div>
+</div>
+</div>
+</div>
+<!-- quick view end -->

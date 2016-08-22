@@ -1,0 +1,63 @@
+<?= $this->insert('overall/header',$data_header) ?>
+<?= $this->insert('overall/header_no',$data_info) ?>
+
+<!-- login content section start -->
+<div class="login-area">
+    <div class="container">
+        <div class="row">
+          <div class="col-md-2"></div>
+            <div class="col-md-8 col-xs-12">
+                <div class="tb-login-form ">
+                  <?php if (!($e[1] === 0)): ?>
+                  <div class="alert alert-dismissible hide" id="ajax_lostpass"></div>
+                <?php else: ?>
+                  <div class="alert alert-dismissible" id="ajax_lostpass"><h4>Error</h4> <?= $e[0] ?></div>
+                <?php endif ?>
+                    <h5 class="tb-title">Activar cuenta</h5>
+                    <?php if($recovery and !($e[1] === 0)): ?>
+                      <p>Estas a un paso de completar tu cambio de contraseña.</p>
+                      <form id="lostpass_form">
+                          <p class="checkout-coupon top log a-an">
+                              <label class="l-contact">
+                                  Contraseña
+                                  <em>*</em>
+                              </label>
+                              <input type="password" name="pass" placeholder="Contraseña" id="pass">
+                          </p>
+                          <p class="checkout-coupon top log a-an">
+                              <label class="l-contact">
+                                  Repetir contraseña
+                                  <em>*</em>
+                              </label>
+                              <input type="password" name="pass_c" placeholder="Repetir contraseña" id="pass_c">
+                          </p>
+                          <input type="hidden" name="key" value="<?= $ky ?>"/>
+                          <p class="login-submit5">
+                              <input class="button-primary" type="button" id="lostpass_g" value="Continuar">
+                          </p>
+                      </form>
+                    <?php else: ?>
+                    <p>Para recuperar tu contraseña ingresa tu correo, te llegara un correo con un link para reiniciar tu contraseña.</p>
+                    <form id="lostpass_form">
+                        <p class="checkout-coupon top log a-an">
+                            <label class="l-contact">
+                                Correo
+                                <em>*</em>
+                            </label>
+                            <input type="email" name="email" id="email">
+                        </p>
+                        <p class="login-submit5">
+                            <input class="button-primary" type="button" id="lostpass" value="Reiniciar contraseña">
+                        </p>
+                    </form>
+                  <?php endif ?>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+<!-- login  content section end -->
+
+<?= $this->insert('overall/footer') ?>
+<script src="views/app/js/lostpass.js"></script>

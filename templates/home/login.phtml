@@ -1,0 +1,97 @@
+<?= $this->insert('overall/header',$data_header)?>
+
+<?= $this->insert('overall/header_no',$data_info) ?>
+<script>
+  window.fbAsyncInit = function() {
+    FB.init({
+      appId      : '148761148889341',
+      xfbml      : true,
+      version    : 'v2.7'
+    });
+  };
+
+  (function(d, s, id){
+     var js, fjs = d.getElementsByTagName(s)[0];
+     if (d.getElementById(id)) {return;}
+     js = d.createElement(s); js.id = id;
+     js.src = "//connect.facebook.net/en_US/sdk.js";
+     fjs.parentNode.insertBefore(js, fjs);
+   }(document, 'script', 'facebook-jssdk'));
+</script>
+<div class="login-area">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6 col-xs-12">
+                <div class="tb-login-form ">
+                    <h5 class="tb-title">Inicio Sesión</h5>
+                    <p>Bienvenido de regreso.</p>
+                      <?php if (isset($_GET['s'])) :?>
+                        <div class="alert alert-dismissible " id="ajax_login">
+                          <div class="alert alert-dismissible alert-success">
+                            <h4>Activado!</h4>
+                          <p><strong>Ahora puedes iniciar sesión.</strong></p>
+                        </div>
+                      </div>
+                    <?php else:?>
+                      <div class="alert alert-dismissible hide" id="ajax_login"></div>
+                    <?php endif?>
+
+
+                    <div class="tb-social-login fb-login-button" data-auto-logout-link="false">
+                        <a class="tb-facebook-login" href="#">
+                            <i class="fa fa-facebook"></i>
+                             Inicia Sesión con Facebook
+                        </a>
+                    </div>
+                    <form id="login_form">
+                        <p class="checkout-coupon top log a-an">
+                          <div class="input-group margin-bottom-sm">
+                            <span class="input-group-addon"><i class="fa fa-user fa-fw"></i></span>
+                            <input class="form-control" type="text" name="user" id="user" placeholder="Usuario">
+                          </div>
+                        <br>
+                          <div class="input-group">
+                            <span class="input-group-addon"><i class="fa fa-key fa-fw"></i></span>
+                            <input class="form-control" type="password" name="pass" id ="pass" placeholder="Contraseña">
+                          </div>
+                          <br>
+                        </p><br>
+                        <p class="login-submit5 cols-md-6">
+                          <a class="btn btn-lg btn-primary squ" id="login">Inicia Sesión  <i class="fa fa-sign-in"></i></a>
+                        </p>
+                        <div class="forgot-password1 cols-md-6">
+                            <a class="forgot-password" href="<?= __ROOT__ ?>lostpass/">¿Olvidaste tu contraseña?</a>
+                        </div>
+
+                    </form>
+                </div>
+            </div>
+            <div class="col-md-6 col-xs-12">
+                <div class="tb-login-form res">
+                    <h5 class="tb-title">Crea una cuenta</h5>
+                    <p>¿No tienes cuenta?</p>
+                    <form action="<?= __ROOT__ ?>registro" method="post" id='reg'>
+                      <div class="input-group margin-bottom-sm">
+                        <span class="input-group-addon"><i class="fa fa-envelope-o fa-fw"></i></span>
+                        <input name="email" class="form-control" type="email" placeholder="Correo electrónico">
+                      </div>
+                          <br>
+                        <p class="login-submit5 ress" name="mail">
+                            <a class="btn btn-lg btn-primary squ" onclick="$('#reg').submit()">Registrate <i class="fa fa-user-plus" aria-hidden="true"></i></a>
+                        </p>
+                    </form>
+                    <div class="tb-info-login">
+                        <h5 class="tb-title4">Registrate y podrás:</h5>
+                        <ul class="fa-ul">
+                            <li><i class="fa-li fa fa-check-square"></i> Comprar de manera más fácil.</li>
+                            <li><i class="fa-li fa fa-check-square"></i> Tener promociones especiales.</li>
+                            <li><i class="fa-li fa fa-check-square"></i> Lleva registro de todas tus compras.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- login  content section end -->
+<?php $this->insert('overall/footer') ?>

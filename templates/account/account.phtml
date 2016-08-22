@@ -1,0 +1,201 @@
+<?= $this->insert('overall/header',$data_header) ?>
+<?= $this->insert('overall/header_no',$data_info) ?>
+
+
+<!-- my account content section start -->
+<section class="collapse_area coll2">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12 col-sm-12">
+                    <div class="check">
+                        <h2>Mi Cuenta </h2>
+                    </div>
+                    <div class="faq-accordion">
+                        <div class="panel-group pas7" id="accordion" role="tablist" aria-multiselectable="true">
+                            <div class="panel panel-default">
+                                <div class="panel-heading" role="tab" id="headingOne">
+                                    <h4 class="panel-title">
+                                        <a class="collapsed method" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="false" aria-controls="collapseOne">Cambia tu información personal     <i class="fa fa-caret-down"></i></a>
+                                    </h4>
+                                </div>
+                                <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne" aria-expanded="false" >
+                                    <div class="row">
+                                        <div class="easy2">
+                                          <div class="alert alert-dismissible alert-success hide" id="ajax_a"></div>
+                                            <h2>Información de mi cuenta</h2>
+                                            <form class="form-horizontal" id="account_form_a" role="form">
+                                              <div class="alert hide" id="ajax_account_a"></div>
+                                                <fieldset>
+                                                    <legend>Datos personales de <?= $user['user'] ?></legend>
+                                                    <div class="form-group">
+                                                        <label class="col-sm-2 control-label">Nombre </label>
+                                                        <div class="col-sm-10">
+                                                            <input name='Nombre' id='Nombre' class="form-control" type="text" value="<?= $user['Nombre'] ?>" placeholder="First Name">
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label class="col-sm-2 control-label">Apellido</label>
+                                                        <div class="col-sm-10">
+                                                            <input name='Apellido' id='Apellido' class="form-control" type="text" value="<?= $user['Apellido'] ?>" placeholder="Last Name">
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label class="col-sm-2 control-label">E-Mail</label>
+                                                        <div class="col-sm-10">
+                                                            <input name='Correo' id='Correo' class="form-control" type="email" placeholder="E-Mail" value="<?= $user['Correo'] ?>">
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group required">
+                                                        <label class="col-sm-2 control-label">Contraseña</label>
+                                                        <div class="col-sm-10">
+                                                            <input class="form-control" id="pass_pd" name="pass" type="password" placeholder="Contreseña">
+                                                        </div>
+                                                    </div>
+                                                </fieldset>
+                                                <div class="buttons clearfix">
+                                                    <div class="pull-left">
+                                                        <a class="btn btn-default ce5" href="<?= URL ?>">Regresar</a>
+                                                    </div>
+                                                    <div class="pull-right">
+                                                        <input type="hidden" value="a" name="w"/>
+                                                        <input type="hidden" value="<?= $user['user'] ?>" name="user"/>
+                                                        <input type="hidden" value="<?= $token ?>" name="token"/>
+                                                        <input class="btn btn-primary ce5" id="account_a" type="button" value="Guardar cambios">
+                                                    </div>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="panel panel-default">
+                                <div class="panel-heading" role="tab" id="headingTwo">
+                                    <h4 class="panel-title">
+                                        <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">Cambiar contraseña   <i class="fa fa-caret-down"></i></a>
+                                    </h4>
+                                </div>
+                                <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo" aria-expanded="false" style="height: 0px;">
+                                    <div class="row">
+                                        <div class="easy2">
+                                            <h2>Cambie su contraseña</h2>
+                                            <form class="form-horizontal" id="account_form_b">
+                                              <div class="alert hide" id="ajax_account_b"></div>
+                                                <fieldset>
+                                                    <legend>Contraseña</legend>
+                                                    <div class="form-group required">
+                                                        <label class="col-sm-2 control-label">Password</label>
+                                                        <div class="col-sm-10">
+                                                            <input class="form-control" id="pass_p" name="pass" type="password" placeholder="Contraseña">
+                                                        </div>
+                                                    </div>
+                                                    <legend>Contraseña nueva</legend>
+                                                    <div class="form-group required">
+                                                        <label class="col-sm-2 control-label">Contraseña</label>
+                                                        <div class="col-sm-10">
+                                                            <input class="form-control" id="np" name="new_pass" type="password" placeholder="Contraseña">
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group required">
+                                                        <label class="col-sm-2 control-label">Confirmar contraseña</label>
+                                                        <div class="col-sm-10">
+                                                            <input class="form-control" id="np_c" name="new_pass_2" type="password" placeholder="Confirmar contraseña">
+                                                        </div>
+                                                    </div>
+                                                </fieldset>
+                                                <div class="buttons clearfix">
+                                                    <div class="pull-left">
+                                                        <a class="btn btn-default ce5" href="<?= URL ?>">Regresar</a>
+                                                    </div>
+                                                    <div class="pull-right">
+                                                      <input type="hidden" value="b" name="w"/>
+                                                      <input type="hidden" value="<?= $user['user'] ?>" name="user"/>
+                                                      <input type="hidden" value="<?= $token ?>" name="token"/>
+                                                        <input class="btn btn-primary ce5" type="button" id="passwords" value="Guardar cambios">
+                                                    </div>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="panel panel-default">
+                                <div class="panel-heading" role="tab" id="headingThree">
+                                    <h4 class="panel-title">
+                                        <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseThree" aria-expanded="false" aria-controls="collapseTwo">Cambia tu dirección   <i class="fa fa-caret-down"></i></a>
+                                    </h4>
+                                </div>
+                                <div id="collapseThree" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingThree" aria-expanded="false" style="height: 0px;">
+                                    <div class="easy2">
+                                      <h2>Dirección</h2>
+                                      <form name="dirección" id="account_form_c">
+                                        <div class="alert hide" id="ajax_account_c"></div>
+                                        <fieldset>
+                                        <legend>Contraseña</legend>
+                                        <div class="form-group required">
+                                            <label class="col-sm-2 control-label">Password</label>
+                                            <div class="col-sm-10">
+                                                <input class="form-control" id="pass_" name="pass" type="password" placeholder="Contraseña">
+                                            </div>
+                                        </div>
+                                      </fieldset>
+                                      <fieldset>
+                                      <legend>Dirección</legend>
+                                          <table class="table table-bordered table-hover">
+                                              <tr><?php if ( $user['address'] != ""): ?>
+                                                  <td class="text-left" id="add" style="text-aling:left;">
+                                                      Código postal: <?= $user['zc'] ?><br>
+                                                      Dirección: <br>
+                                                      <?= $user['address'] ?>
+                                                  </td>
+                                                <?php endif ?>
+                                                  <td class="text-left" style="display: none; text-aling:left;" id="edit_t_add">
+
+                                                    Código postal: <input type="text" class="form-control" name="zc" id='zc' value="<?= $user['zc'] ?>"/><br>
+                                                    Dirección: <br>
+                                                    <div class="form-group">
+                                                      <textarea class="form-control" id="address" name="address" rows="15"><?= $user['address'] ?></textarea>
+                                                      <input type="hidden" value="c" name="w"/>
+                                                      <input type="hidden" value="<?= $user['user'] ?>" name="user"/>
+                                                      <input type="hidden" value="<?= $token ?>" name="token"/>
+                                                    </div>
+
+                                                  </td>
+                                                  <td class="text-right">
+                                                    <?php if ( $user['address'] != ""): ?>
+                                                      <a class="btn btn-info g6" id="edit_add">Editar</a>
+                                                      <a class="btn btn-danger g6" id="delete_addr">Borrar</a>
+                                                    <?php else: ?>
+                                                      <a class="btn btn-info g6" id="new_add">Nueva dirección</a>
+                                                    <?php endif ?>
+                                                  </td>
+                                              </tr>
+                                          </table>
+                                        </fieldset>
+                                        <fieldset>
+                                          <div class="buttons clearfix">
+                                              <div class="pull-left">
+                                                  <a class="btn btn-default ce5" href="<?= URL ?>">Regresar</a>
+                                              </div>
+                                              <div class="pull-right">
+                                                <input type="hidden" value="c" name="w"/>
+                                                <input type="hidden" value="<?= $user['user'] ?>" name="user"/>
+                                                <input type="hidden" value="<?= $token ?>" name="token"/>
+                                                  <input class="btn btn-primary ce5" id="direcc" type="button" value="Guardar Cambios">
+                                              </div>
+                                          </div>
+                                        </fieldset>
+                                      </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <a class="collap" href="wishlist/">Ver tus productos favoritos   <i class="fa fa-caret-down"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+<!-- my account  content section end -->
+
+<?= $this->insert('overall/footer') ?>
+<script src="views/app/js/account.js"></script>
