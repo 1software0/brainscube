@@ -1,0 +1,39 @@
+<?= $this->insert('overall/header',$data_header)?>
+
+<?= $this->insert('overall/header_no',$data_info) ?>
+<!-- login content section start -->
+<div class="login-area">
+    <div class="container">
+        <div class="row">
+          <div class="col-md-2"></div>
+            <div class="col-md-8 col-xs-12">
+                <div class="tb-login-form ">
+                  <?php if ($e): ?>
+                    <div class="alert alert-dismissible alert-danger">
+                          <h4>! Error !</h4>
+                        <p><strong><?= $mensaje ?></strong></p>
+                      </div>
+                  <?php endif?>
+                    <h5 class="tb-title">Activar cuenta</h5>
+                    <p>Bienvenido de regreso.</p>
+                    <form id="login_form" method="post">
+                        <p class="checkout-coupon top log a-an">
+                            <label class="l-contact">
+                                Usuario
+                                <em>*</em>
+                            </label>
+                            <input type="text" name="user" id="user">
+                            <input type="hidden" name="key" value="<?= $ky ?>"/>
+                        </p>
+                        <p class="login-submit5">
+                            <input class="button-primary" type="submit" id="login" value="Activar">
+                        </p>
+                    </form>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+<!-- login  content section end -->
+<?php $this->insert('overall/footer') ?>

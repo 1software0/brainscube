@@ -1,0 +1,20 @@
+<!-- slider-section-start -->
+<section class="slider-main-area">
+    <div class="main-slider an-si">
+        <div class="bend niceties preview-2 hm-ver-1">
+            <div id="ensign-nivoslider-2" class="slides">
+              <?php for($x = 0; $x < count($n); $x++): ?>
+                <img src="<?= $n[$x][0] ?>" alt="" title="#slider-direction-<?= ($x+2) ?>"  />
+              <?php endfor ?>
+            </div>
+            <?php for ($i=0; $i < count($n); $i++) : ?>
+            <div id="slider-direction-<?= ($i+2) ?>" class="t-cn slider-direction Builder">
+                <div class="slide-all">
+                  <?= $n[$i][1] ?>
+                </div>
+            </div>
+          <?php endfor ?>
+        </div>
+      </div>
+  </section>
+  <!-- slider section end -->

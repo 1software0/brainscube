@@ -1,0 +1,638 @@
+-------------js--------------
+var on = true;
+var error_icon = '<span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span> ',
+    success_icon = '<span class="glyphicon glyphicon-ok" aria-hidden="true"></span> ',
+    process_icon = '<span class="fa fa-spinner fa-spin" aria-hidden="true"></span> ';
+var nombre = $('#Nombre'), correo = $("#Correo"), apell = $("#Apellido"), new_p = $("#np"), addr = $("#address"), zc = $("#zc");
+
+var vNombre = nombre.val(), vApe = apell.val(), vCoreo = correo.val(), vAddr = addr.val(), vZc = zc.val();
+
+$('#PD').prop('disabled', true);
+$('#passwords').prop('disabled', true);
+$('#direcc').prop('disabled', true);
+
+$('#edit_add').click(function () {
+  if (on) {
+    $('#edit_t_add').show();
+    $('#add').hide();
+    $('#edit_add').text('Cancelar');
+    $("#delete_addr").hide();
+    on = false;
+  } else {
+    $('#edit_t_add').hide();
+    $('#add').show();
+    $('#edit_add').text('Editar');
+    $('#direcc').prop('disabled', true);
+    $("#delete_addr").show();
+    on = true;
+  }
+
+});
+
+n = setInterval(function () {
+  if (nombre.val() != vNombre || correo.val() != vCoreo || apell.val() != vApe) {
+    $('#PD').prop('disabled', false);
+  } else {
+    $('#PD').prop('disabled', true);
+  }
+  if (new_p.val() != '') {
+    $('#passwords').prop('disabled', false);
+  } else {
+    $('#passwords').prop('disabled', true);
+  }
+  if (addr.val() != vAddr || zc.val() != vZc) {
+    $('#direcc').prop('disabled', false);
+  } else {
+    $('#direcc').prop('disabled', true);
+  }
+},200);
+
+
+
+$('#PD').click(function () {
+
+  $('#ajax_a').removeClass('alert-danger');
+  $('#ajax_a').removeClass('alert-warning');
+  $('#ajax_a').addClass('alert-warning');
+  $("#ajax_a").html('<h4>Procesando información</h4>'+ process_icon +' Estamos procesando tus datos por favor espere...');
+  $('#ajax_a').removeClass('hide');
+  $(':input').prop( "disabled", true );
+
+  if ($("#pass_pd").val() != '') {
+    $.ajax({
+      type : "POST",
+      url : "api/edit",
+      data : $('#pd').serialize(),
+      success : function(json) {
+        var obj = jQuery.parseJSON(json);
+        if(obj.success == 1) {
+          $('#ajax_register').html(success_icon + obj.message);
+          $("#ajax_register").removeClass('alert-warning');
+          $("#ajax_register").addClass('alert-success');
+          $("#ajax_register").addClass('hide').delay( 3000 );
+          $(':input').prop( "disabled", false );
+        } else {
+          $('#ajax_register').html(error_icon  + obj.message);
+          $("#ajax_register").removeClass('alert-warning');
+          $("#ajax_register").addClass('alert-danger');
+          $(':input').prop( "disabled", false );
+        }
+      },
+      error : function() {
+        window.alert("#error")
+        $('#ajax_a').removeClass('alert-danger');
+        $('#ajax_a').removeClass('alert-warning');
+        $('#ajax_a').addClass('alert-danger');
+        $("#ajax_a").html(error_icon  + '<h4>Error interno:</h4> No se pudo completar su petición.');
+        $('#ajax_a').removeClass('hide');
+        $(':input').prop( "disabled", false );
+      }
+    });
+  } else {
+    $('#ajax_a').removeClass('alert-danger');
+    $('#ajax_a').removeClass('alert-warning');
+    $('#ajax_a').addClass('alert-danger');
+    $("#ajax_a").html(error_icon  + 'Debe ingresar su contraseña');
+    $('#ajax_a').removeClass('hide');
+    $(':input').prop( "disabled", false );
+  }
+});
+$('#passwords').click();
+$('#direcc').click();
+------------------view-------------------
+<!-- my account content section start -->
+<section class="collapse_area coll2">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12 col-sm-12">
+                    <div class="check">
+                        <h2>Mi Cuenta </h2>
+                    </div>
+                    <div class="faq-accordion">
+                        <div class="panel-group pas7" id="accordion" role="tablist" aria-multiselectable="true">
+                            <div class="panel panel-default">
+                                <div class="panel-heading" role="tab" id="headingOne">
+                                    <h4 class="panel-title">
+                                        <a class="collapsed method" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="false" aria-controls="collapseOne">Cambia tu información personal     <i class="fa fa-caret-down"></i></a>
+                                    </h4>
+                                </div>
+                                <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne" aria-expanded="false" >
+                                    <div class="row">
+                                        <div class="easy2">
+                                          <div class="alert alert-dismissible alert-success hide" id="ajax_a"></div>
+                                            <h2>Información de mi cuenta</h2>
+                                            <form class="form-horizontal" id="pd" role="form">
+                                                <fieldset>
+                                                    <legend>Datos personales de <?= $user['user'] ?></legend>
+                                                    <div class="form-group">
+                                                        <label class="col-sm-2 control-label">Nombre </label>
+                                                        <div class="col-sm-10">
+                                                            <input name='Nombre' id='Nombre' class="form-control" type="text" value="<?= $user['Nombre'] ?>" placeholder="First Name">
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label class="col-sm-2 control-label">Apellido</label>
+                                                        <div class="col-sm-10">
+                                                            <input name='Apellido' id='Apellido' class="form-control" type="text" value="<?= $user['Apellido'] ?>" placeholder="Last Name">
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label class="col-sm-2 control-label">E-Mail</label>
+                                                        <div class="col-sm-10">
+                                                            <input name='Correo' id='Correo' class="form-control" type="email" placeholder="E-Mail" value="<?= $user['Correo'] ?>">
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group required">
+                                                        <label class="col-sm-2 control-label">Contraseña</label>
+                                                        <div class="col-sm-10">
+                                                            <input class="form-control" id="pass_pd" type="password" placeholder="Contreseña">
+                                                        </div>
+                                                    </div>
+                                                </fieldset>
+                                                <div class="buttons clearfix">
+                                                    <div class="pull-left">
+                                                        <a class="btn btn-default ce5" href="<?= URL ?>">Regresar</a>
+                                                    </div>
+                                                    <div class="pull-right">
+                                                        <input type="hidden" value="a" name="w"/>
+                                                        <input type="hidden" value="<?= $user['user'] ?>" name="user"/>
+                                                        <input class="btn btn-primary ce5" id="PD" type="button" value="Cambiar">
+                                                    </div>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="panel panel-default">
+                                <div class="panel-heading" role="tab" id="headingTwo">
+                                    <h4 class="panel-title">
+                                        <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">Cambiar contraseña   <i class="fa fa-caret-down"></i></a>
+                                    </h4>
+                                </div>
+                                <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo" aria-expanded="false" style="height: 0px;">
+                                    <div class="row">
+                                        <div class="easy2">
+                                            <h2>Cambie su contraseña</h2>
+                                            <form class="form-horizontal" id="pass">
+                                                <fieldset>
+                                                    <legend>Contraseña</legend>
+                                                    <div class="form-group required">
+                                                        <label class="col-sm-2 control-label">Password</label>
+                                                        <div class="col-sm-10">
+                                                            <input class="form-control" type="password" placeholder="Contraseña">
+                                                        </div>
+                                                    </div>
+                                                    <legend>Contraseña nueva</legend>
+                                                    <div class="form-group required">
+                                                        <label class="col-sm-2 control-label">Contraseña</label>
+                                                        <div class="col-sm-10">
+                                                            <input class="form-control" id="np" type="password" placeholder="Contraseña">
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group required">
+                                                        <label class="col-sm-2 control-label">Confirmar contraseña</label>
+                                                        <div class="col-sm-10">
+                                                            <input class="form-control" id="np_c" type="password" placeholder="Confirmar contraseña">
+                                                        </div>
+                                                    </div>
+                                                </fieldset>
+                                                <div class="buttons clearfix">
+                                                    <div class="pull-left">
+                                                        <a class="btn btn-default ce5" href="<?= URL ?>">Regresar</a>
+                                                    </div>
+                                                    <div class="pull-right">
+                                                        <input class="btn btn-primary ce5" type="button" id="passwords" value="Cambiar">
+                                                    </div>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="panel panel-default">
+                                <div class="panel-heading" role="tab" id="headingThree">
+                                    <h4 class="panel-title">
+                                        <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseThree" aria-expanded="false" aria-controls="collapseTwo">Cambia tu dirección   <i class="fa fa-caret-down"></i></a>
+                                    </h4>
+                                </div>
+                                <div id="collapseThree" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingThree" aria-expanded="false" style="height: 0px;">
+                                    <div class="easy2">
+                                        <h2>Dirección</h2>
+                                        <table class="table table-bordered table-hover">
+                                            <tr>
+                                                <td class="text-left" id="add">
+                                                    Código postal: <?= $user['zc'] ?><br>
+                                                    Dirección: <br>
+                                                    <?= $user['address'] ?>
+                                                </td>
+                                                <td class="text-left" style="display: none;" id="edit_t_add">
+                                                  <form name="dirección">
+                                                  Código postal: <input type="text" name="zc" id='zc' value="<?= $user['zc'] ?>"/><br>
+                                                  Dirección: <br>
+                                                  <textarea class="text-left" name="address" id="address" style="width:90%;height:auto;"><?= $user['address'] ?></textarea>
+                                                </form>
+                                                </td>
+                                                <td class="text-right">
+                                                    <a class="btn btn-info g6" id="edit_add">Editar</a>
+                                                    <a class="btn btn-danger g6" id="delete_addr">Borrar</a>
+                                                </td>
+                                            </tr>
+                                        </table>
+                                        <div class="buttons clearfix">
+                                            <div class="pull-left">
+                                                <a class="btn btn-default ce5" href="<?= URL ?>">Regresar</a>
+                                            </div>
+                                            <div class="pull-right">
+                                                <input class="btn btn-primary ce5" id="direcc" type="button" value="Guardar Cambios">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <a class="collap" href="wishlist.html">Ver tus productos favoritos   <i class="fa fa-caret-down"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+<!-- my account  content section end -->
+------------------function-------------
+/**
+* Cambia datos del usuario
+*
+* @param array $data : Los datos que se van a cambiar
+*
+* @return array : Si hubo exito o un mensaje de error
+*/
+final public function Change_pd(array $data) : array {
+$bd = Conexion::Start();
+Helper::load('strings');
+
+switch ($data['w']) {
+  case 'a':
+    $name = Strings::encriypt_($bd->scape($data['Nombre']));
+    $apell = Strings::encriypt_($bd->scape($data['Apellido']));
+    $mail = Strings::encriypt_($bd->scape($data['Correo']));
+    $user = Strings::encriypt_($bd->scape($data['user']));
+
+    if (Func::Allfull($data)) {
+      $u = $this->db->select('id,pass','usuarios',"user='$user'",'LIMIT 1');
+      if(false != $u and Strings::chash($u[0][1],$data['pass'])) {
+        $e = array('Apellido' => $apell, 'Nombre' => $name, 'Correo' => $mail);
+        $id = $u[0][0];
+        $bd->update('users',$e,"id='$id'");
+        $success = 1;
+        $message = 'Se han guardado los cambios';
+      } else {
+        $success = 0;
+        $message = 'La contraseña no coincide';
+      }
+    } else {
+      $success = 0;
+      $message = 'No ha llenado todos los datos';
+    }
+    break;
+
+  default:
+    $success = 0;
+    $messaje = 'No se encontró la petición';
+    break;
+}
+
+return array('success' => $success, 'message' => $message);
+
+}
+-------------------
+<!-- shop-style content section start -->
+<section class="pages products-page section-padding-top">
+  <div class="container">
+    <div class="row">
+        <div class="col-md-4 col-lg-3 col-sm-12">
+                    <div class="all-shop-sidebar">
+                        <div class="top-shop-sidebar">
+                            <h3 class="wg-title">SHOP BY</h3>
+                        </div>
+                        <div class="shop-one">
+                            <h3 class="wg-title2">Categories</h3>
+                            <ul class="product-categories">
+                                <li class="cat-item">
+                                    <a href="#">Accessories</a>
+                                    <span class="count">(10)</span>
+                                </li>
+                                <li class="cat-item">
+                                    <a href="#">Jewelry</a>
+                                    <span class="count">(8)</span>
+                                </li>
+                                <li class="cat-item current-cat">
+                                    <a href="#">Men</a>
+                                    <span class="count">(5)</span>
+                                </li>
+                                <li class="cat-item">
+                                    <a href="#">Watches</a>
+                                    <span class="count">(6)</span>
+                                </li>
+                                <li class="cat-item">
+                                    <a href="#">Women</a>
+                                    <span class="count">(10)</span>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="shop-one">
+                            <h3 class="wg-title2">Our Brand</h3>
+                            <ul class="product-categories">
+                                <li class="cat-item">
+                                    <a href="#">Nike</a>
+                                    <span class="count">(1)</span>
+                                </li>
+                                <li class="cat-item">
+                                    <a href="#">Religion</a>
+                                    <span class="count">(1)</span>
+                                </li>
+                                <li class="cat-item-10">
+                                    <a href="#">Diesel</a>
+                                    <span class="count">(1)</span>
+                                </li>
+                                <li class="cat-item">
+                                    <a href="#">Monki</a>
+                                    <span class="count">(1)</span>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="shop-one re-shop-one">
+                            <h3 class="wg-title2">Por rango de precios</h3>
+                            <div class="widget shop-filter">
+                                <div class="info_widget">
+                                    <div class="price_filter">
+                                        <div id="slider-range" data-slider-min="<?= floor($prices[0] / 100) ?>" data-slider-max="<?= ceil($prices[1] / 100) ?>"></div>
+                                        <div id="amount">
+                                            <input type="text" name="first_price"  class="first_price" />
+                                            <input type="text" name="last_price" class="last_price"/>
+                                            <button class="button-shop" type="submit"><i class="fa fa-search search-icon"></i></button>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="shop-one re-shop-one">
+                            <h3 class="wg-title2">Choose Color</h3>
+                            <ul class="product-categories">
+                                <li class="cat-item cat-item-11">
+                                    <a href="#">Black</a>
+                                    <span class="count">(1)</span>
+                                </li>
+                                <li class="cat-item cat-item-8">
+                                    <a href="#">Orange</a>
+                                    <span class="count">(1)</span>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="top-shop-sidebar sim">
+                            <h3 class="wg-title">Compare Products</h3>
+                            <ul class="products-list">
+                                <li class="cat-item cat-item-11">No products to compare</li>
+                            </ul>
+                            <a class="clear-all" href="#">Clear all</a>
+                            <a class="blog8" href="#">Compare</a>
+                        </div>
+                        <div class="top-shop-sidebar sim2">
+                            <h3 class="wg-title">Community Pool</h3>
+                        </div>
+                        <div class="shop-one">
+                            <ul class="product-categories">
+                                <li class="cat-item cat-item-11">
+                                    <a href="#">Black</a>
+                                    <span class="count">(1)</span>
+                                </li>
+                                <li class="cat-item cat-item-8">
+                                    <a href="#">Orange</a>
+                                    <span class="count">(1)</span>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="top-shop-sidebar an-shop">
+                            <h3 class="wg-title">BEST SELLER</h3>
+                            <ul>
+                               <li class="b-none">
+                                    <div class="tb-recent-thumbb">
+                                        <a href="">
+                                            <img class="attachment" src="img/products/1.jpg" alt="">
+                                        </a>
+                                    </div>
+                                    <div class="tb-recentb">
+                                        <div class="tb-beg">
+                                            <a href="#">Lambskin Shoe</a>
+                                        </div>
+                                        <div class="tb-product-price font-noraure-3">
+                                            <span class="amount">$180.00</span>
+                                        </div>
+                                    </div>
+                                </li>
+                               <li class="b-none">
+                                    <div class="tb-recent-thumbb">
+                                        <a href="">
+                                            <img class="attachment" src="img/products/2.jpg" alt="">
+                                        </a>
+                                    </div>
+                                    <div class="tb-recentb">
+                                        <div class="tb-beg">
+                                            <a href="#">Luxury Leather Bag</a>
+                                        </div>
+                                        <div class="tb-product-price font-noraure-3">
+                                            <span class="amount2 ana">$170.00</span>
+                                        </div>
+                                    </div>
+                                </li>
+                               <li class="b-none agn">
+                                    <div class="tb-recent-thumbb">
+                                        <a href="">
+                                            <img class="attachment" src="img/products/3.jpg" alt="">
+                                        </a>
+                                    </div>
+                                    <div class="tb-recentb">
+                                        <div class="tb-beg">
+                                            <a href="#">Vintage Glasses</a>
+                                        </div>
+                                        <div class="tb-product-price font-noraure-3">
+                                            <span class="amount2 ana">$170.00</span>
+                                        </div>
+                                    </div>
+                                </li>
+                           </ul>
+                        </div>
+                        <div class="ro-info-box-wrap tpl3 st">
+                            <div class="tb-image">
+                                <img src="views/img/products/4.jpg" alt="">
+                            </div>
+                            <div class="tb-content">
+                                <div class="tb-content-inner an-inner">
+                                    <h5>WOMEN'S FASHION</h5>
+                                    <h3>MID SEASON SALE</h3>
+                                    <h6>
+                                        <a href="#">SHOP NOW</a>
+                                    </h6>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-8 col-lg-9 col-sm-12">
+                    <div class="row">
+                        <div class="col-md-12 col-sm-12 col-xs-12">
+                            <div class="features-tab">
+                              <!-- Nav tabs -->
+                                <div class="shop-all-tab">
+                                    <div class="two-part">
+                                        <ul class="nav tabs" role="tablist">
+                                            <li class="vali">View as:</li>
+                                            <li role="presentation" class="active"><a href="#home" aria-controls="home" role="tab" data-toggle="tab"><i class="fa fa-th-large"></i></a></li>
+                                            <li role="presentation"><a href="#profile" aria-controls="profile" role="tab" data-toggle="tab"><i class="fa fa-align-justify"></i></a></li>
+                                        </ul>
+                                    </div>
+                                    <div class="re-shop">
+                                       <div class="sort-by">
+                                            <div class="shop6">
+                                                <label>Sort By :</label>
+                                                <select>
+                                                    <option value="">Default sorting</option>
+                                                    <option value="">Sort by popularity</option>
+                                                    <option value="">Sort by average rating</option>
+                                                    <option value="">Sort by newness</option>
+                                                    <option value="">Sort by price: low to high</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="shop5">
+                                            <label>Show :</label>
+                                            <select>
+                                                <option value="">12</option>
+                                                <option value="">24</option>
+                                                <option value="">36</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+
+                              <!-- Tab panes -->
+                                <div class="tab-content">
+
+                                  <div role="tabpanel" class="tab-pane active" id="home">
+                                      <div class="row">
+                                          <div class="shop-tab">
+                                            <?php if (count($store->productos)>0): ?>
+                                              <?php $m = 0; ?>
+                                            <?php for ($i=$start; $i < $limit; $i++): ?>
+                                              <!-- single-product start -->
+                                              <div class="col-md-4 col-lg-4 col-sm-6">
+                                                  <div class="single-product">
+                                                      <div class="product-img">
+                                                          <div class="pro-type alert alert-dismisable">
+                                                              <span>Oferta</span>
+                                                          </div>
+                                                          <a href="#">
+                                                              <img src="views/img/products/1.jpg" alt="<?= $store->productos[$i]->titulo ?>" />
+                                                              <img class="secondary-image" alt="<?= $store->productos[$i]->titulo ?>" src="views/img/products/2.jpg">
+                                                          </a>
+                                                      </div>
+                                                      <div class="product-dsc">
+                                                          <h3><a href="#"><?= $store->productos[$i]->marca.' '.$store->productos[$i]->titulo . ' ' .($i+1)?></a></h3>
+                                                          <div class="star-price">
+                                                              <span class="price-left"><?= Articulo::dar_precio($store->productos[$i]->precio) ?></span>
+                                                              <span class="star-right">
+                                                                  <?php for ($s=0; $s < 5; $s++): ?>
+                                                                    <?php if ($store->productos[$i]->rating > $s) : ?>
+                                                                        <i class="fa fa-star" style="color:gold;"></i>
+                                                                    <?php else: ?>
+                                                                      <i class="fa fa-star-o" style="color: #aaa;"></i>
+                                                                    <?php endif ?>
+                                                                  <?php endfor ?>
+                                                              </span>
+                                                          </div>
+                                                      </div>
+                                                      <div class="actions-btn">
+                                                          <a href="#" data-placement="top" data-target="#quick-view" onclick="ver_q(<?= $m++ ?>);" data-trigger="hover" data-toggle="modal" data-original-title="Vista rápida"><i class="fa fa-eye"></i></a>
+                                                          <a data-placement="top" data-toggle="tooltip" href="#" data-original-title="Añadir a fvoritos"><i class="fa fa-heart"></i></a>
+                                                          <a href="#" data-toggle="tooltip" data-placement="top" title="Añadir a carro"><i class="fa fa-shopping-cart"></i></a>
+                                                      </div>
+                                                  </div>
+                                              </div>
+                                              <!-- single-product end -->
+                                            <?php endfor ?>
+                                          <?php else: ?>
+                                            <h2> No hay productos </h2>
+                                          <?php endif ?>
+                                          </div>
+                                      </div>
+                                  </div>
+
+                                    <div role="tabpanel" class="tab-pane" id="profile">
+                                        <div class="row">
+                                          <?php if (count($store->productos)>0): ?>
+                                            <? $z = 0; ?>
+                                          <?php for ($i=$start; $i <  $limit; $i++): ?>
+                                           <!-- single-product start -->
+                                            <div class="li-item">
+                                                <div class="col-md-4 col-sm-4">
+                                                    <div class="tb-product-item-inner tb2 pct-last">
+                                                        <div class="pro-type alert">
+                                                            <span>Nuevo</span>
+                                                        </div>
+                                                        <div class="re-img">
+                                                            <a href="#"><img alt="" src="views/img/products/1.jpg"></a>
+                                                        </div>
+                                                        <div class="actions-btn">
+                                                            <a data-original-title="Quick View" data-toggle="modal" onclick="ver_q(<?= $z++ ?>);" data-trigger="hover" data-target="#quick-view" data-placement="top" href="#">
+                                                            <i class="fa fa-eye"></i>
+                                                            </a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-8 col-sm-8">
+                                                    <div class="f-fix">
+                                                        <div class="tb-beg">
+                                                            <a href="#"><?= $store->productos[$i]->marca.' '.$store->productos[$i]->titulo. ' ' .($i+1) ?></a>
+                                                        </div>
+                                                        <div class="tb-product-wrap-price-rating">
+                                                            <div class="tb-product-price font-noraure-3">
+                                                                <span class="amount2 ana"><?= Articulo::dar_precio($store->productos[$i]->precio) ?></span>
+
+                                                            </div>
+                                                        </div>
+                                                        <p class="desc"><?= $store->productos[$i]->descripcion[0] ?></p>
+                                                        <div class="last-cart l-mrgn ns">
+                                                            <a class="las4" href="#">Agregar al carro</a>
+                                                        </div>
+                                                        <div class="tb-product-btn">
+                                                            <a href="#" id="fav">
+                                                                <i class="fa fa-heart"></i>
+                                                            </a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <!-- single-product end -->
+                                          <?php endfor ?>
+                                        <?php else: ?>
+                                          <h3> No hay productos </h3>
+                                        <?php endif ?>
+                                      </div>
+                                  </div>
+
+                                </div>
+                                <div class="shop-all-tab-cr shop-bottom">
+                                    <div class="two-part">
+                                        <div class="shop5 page">
+                                            <?= Bootstrap::pager($link,$paginas_totales,$pag,'',$config) ?>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+    </div>
+  </div>
+</section>
+<!-- shop-style  content section end -->

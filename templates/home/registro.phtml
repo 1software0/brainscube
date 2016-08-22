@@ -1,0 +1,70 @@
+<?= $this->insert('overall/header',$data_header)?>
+
+<?= $this->insert('overall/header_no', $data_info) ?>
+
+<!-- registro content section start -->
+<div class="login-area">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12 col-xs-12">
+                <div class="tb-login-form ">
+                    <h5 class="tb-title">Registro</h5>
+                    <div class="alert alert-dismisable hide" id="ajax_register"></div>
+                    <form id="register_form">
+                      <div class="col-md-6 col-xs-12">
+                        <div class="input-group margin-bottom-sm">
+                          <span class="input-group-addon"><i class="fa fa-envelope-o fa-fw"></i></span>
+                          <input  name="email" id="email" value="<?php echo $correo; ?>" class="form-control" type="email" placeholder="Email address">
+                        </div><br>
+                      </div>
+                      <div class="col-md-6 col-xs-12">
+                        <div class="input-group margin-bottom-sm">
+                          <span class="input-group-addon"><i class="fa fa-user fa-fw"></i></span>
+                          <input class="form-control" type="text" name="user" id="user" placeholder="Usuario">
+                        </div><br>
+                        </div>
+                      <div class="col-md-6 col-xs-12">
+                        <div class="input-group margin-bottom-sm">
+                          <span class="input-group-addon"><i class="fa fa-user fa-fw"></i></span>
+                          <input class="form-control" type="text" name="user_name" id="user_name" placeholder="Nombre">
+                        </div><br>
+                        </div>
+                        <div class="col-md-6 col-xs-12">
+                          <div class="input-group margin-bottom-sm">
+                            <span class="input-group-addon"><i class="fa fa-user fa-fw"></i></span>
+                            <input class="form-control" type="text"  name="user_last" id="user_last" placeholder="Apellido">
+                          </div><br>
+                          </div>
+                        <div class="col-md-6 col-xs-12">
+                          <div class="input-group">
+                            <span class="input-group-addon"><i class="fa fa-key fa-fw"></i></span>
+                            <input class="form-control" type="password" name="pass" id="pass" placeholder="Password">
+                          </div><br>
+                        </div>
+                        <div class="col-md-6 col-xs-12">
+                          <div class="input-group">
+                            <span class="input-group-addon"><i class="fa fa-key fa-fw"></i></span>
+                            <input class="form-control" type="password" name="pass_2" id="pass_2" placeholder="Password">
+                          </div><br>
+                        </div>
+                        <div class="forgot-password1">
+                            <label class="inline2">
+                                <input type="checkbox" id="tyc_reg">
+                                Acepto los términos y condiciones.
+                            </label>
+                            <label class="forgot-password">
+                              <font style="color:#000;">¿Ya tienes una cuenta? </font>
+                              <a class="forgot-password" href="<?= __ROOT__ ?>login">Inicia sesión</a>
+                          </label>
+                        </div>
+                          <p class=" login-submit5">
+                            <a class="btn btn-lg btn-primary squ" id='register'>Registrate <i class="fa fa-user-plus" aria-hidden="true"></i></a>
+                          </p>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- registro  content section end -->
+<?php $this->insert('overall/footer') ?>

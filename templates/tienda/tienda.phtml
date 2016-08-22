@@ -1,0 +1,308 @@
+<?= $this->insert('overall/header',$data_header) ?>
+<?= $this->insert('overall/header_no',$data_info) ?>
+
+<script>function ver_q(v) {var owl = $("#view-gallery").data('owlCarousel');owl.jumpTo(v);} </script>
+
+<?= "<script> var root =  '".$url.$amp."';</script>" ?>
+
+<!-- shop-style content section start -->
+<section class="pages products-page section-padding-top">
+  <div class="container">
+    <div class="row">
+        <div class="col-md-4 col-lg-3 col-sm-12">
+                    <div class="all-shop-sidebar">
+                        <div class="top-shop-sidebar">
+                            <h3 class="wg-title">SHOP BY</h3>
+                        </div>
+                        <div class="shop-one">
+                            <h3 class="wg-title2">Categories</h3>
+                            <ul class="product-categories">
+                              <?php for ($o=0; $o < count($store->categorias); $o++) : ?>
+                                <li class="cat-item">
+                                    <a href="<?= $url.$amp.'categoria='.$store->categorias[$o]->link ?>"><?= $store->categorias[$o]->titulo ?></a>
+                                    <span class="count">(<?= $store->count_c($o) ?>)</span>
+                                </li>
+                              <?php endfor ?>
+                            </ul>
+                        </div>
+                        <div class="shop-one">
+                            <h3 class="wg-title2">Marcas</h3>
+                            <ul class="product-categories">
+                              <?php for ($o=0; $o < count($store->marcas); $o++) : ?>
+                                <li class="cat-item">
+                                    <a href="<?= $url.$amp.'marca='.$store->marcas[$o]->link ?>"><?= $store->marcas[$o]->titulo ?></a>
+                                    <span class="count">(<?= $store->count_m($o) ?>)</span>
+                                </li>
+                              <?php endfor ?>
+                            </ul>
+                        </div>
+                        <div class="shop-one re-shop-one">
+                            <h3 class="wg-title2">Por rango de precios</h3>
+                            <div class="widget shop-filter">
+                                <div class="info_widget">
+                                    <div class="price_filter">
+                                        <div id="slider-range" data-slider-min="<?= floor($prices[0] / 100) ?>" data-slider-max="<?= ceil($prices[1] / 100) ?>"></div>
+                                        <div id="amount">
+                                            <input type="text" name="first_price"  class="first_price" />
+                                            <input type="text" name="last_price" class="last_price"/>
+                                            <a href="<?= $url.$amp.'min='.floor($prices[0] / 100).'&max='.ceil($prices[1] / 100) ?>" id="sea_p" class="button-shop"><i class="fa fa-search search-icon"></i></a>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="shop-one re-shop-one">
+                            <h3 class="wg-title2">Choose Color</h3>
+                            <ul class="product-categories">
+                              <?php for ($o=0; $o < count($store->colors); $o++) : ?>
+                                <li class="cat-item">
+                                    <a href="<?= $url.$amp.'marca='.$store->colors[$o]->link ?>"><?= $store->colors[$o]->titulo ?></a>
+                                    <span class="count">(<?= $store->count_c($o) ?>)</span>
+                                </li>
+                              <?php endfor ?>
+                            </ul>
+                        </div>
+                        <div class="top-shop-sidebar sim2">
+                            <h3 class="wg-title">Tags</h3>
+                        </div>
+                        <div class="shop-one">
+                            <ul class="product-categories">
+                              <?php for ($o=0; $o < count($store->tags); $o++) : ?>
+                                <li class="cat-item">
+                                    <a href="<?= $url.$amp.'marca='.$store->tags[$o]->link ?>"><?= $store->tags[$o]->titulo ?></a>
+                                    <span class="count">(<?= $store->count_t($o) ?>)</span>
+                                </li>
+                              <?php endfor ?>
+                            </ul>
+                        </div>
+                        <div class="top-shop-sidebar an-shop">
+                            <h3 class="wg-title">BEST SELLER</h3>
+                            <ul>
+                               <li class="b-none">
+                                    <div class="tb-recent-thumbb">
+                                        <a href="">
+                                            <img class="attachment" src="views/img/products/1.jpg" alt="">
+                                        </a>
+                                    </div>
+                                    <div class="tb-recentb">
+                                        <div class="tb-beg">
+                                            <a href="#">Lambskin Shoe</a>
+                                        </div>
+                                        <div class="tb-product-price font-noraure-3">
+                                            <span class="amount">$180.00</span>
+                                        </div>
+                                    </div>
+                                </li>
+                               <li class="b-none">
+                                    <div class="tb-recent-thumbb">
+                                        <a href="">
+                                            <img class="attachment" src="views/img/products/2.jpg" alt="">
+                                        </a>
+                                    </div>
+                                    <div class="tb-recentb">
+                                        <div class="tb-beg">
+                                            <a href="#">Luxury Leather Bag</a>
+                                        </div>
+                                        <div class="tb-product-price font-noraure-3">
+                                            <span class="amount2 ana">$170.00</span>
+                                        </div>
+                                    </div>
+                                </li>
+                               <li class="b-none agn">
+                                    <div class="tb-recent-thumbb">
+                                        <a href="">
+                                            <img class="attachment" src="views/img/products/3.jpg" alt="">
+                                        </a>
+                                    </div>
+                                    <div class="tb-recentb">
+                                        <div class="tb-beg">
+                                            <a href="#">Vintage Glasses</a>
+                                        </div>
+                                        <div class="tb-product-price font-noraure-3">
+                                            <span class="amount2 ana">$170.00</span>
+                                        </div>
+                                    </div>
+                                </li>
+                           </ul>
+                        </div>
+                        <div class="ro-info-box-wrap tpl3 st">
+                            <div class="tb-image">
+                                <img src="views/img/products/4.jpg" alt="">
+                            </div>
+                            <div class="tb-content">
+                                <div class="tb-content-inner an-inner">
+                                    <h5>WOMEN'S FASHION</h5>
+                                    <h3>MID SEASON SALE</h3>
+                                    <h6>
+                                        <a href="#">SHOP NOW</a>
+                                    </h6>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-8 col-lg-9 col-sm-12">
+                    <div class="row">
+                        <div class="col-md-12 col-sm-12 col-xs-12">
+                            <div class="features-tab">
+                              <!-- Nav tabs -->
+                                <div class="shop-all-tab">
+                                    <div class="two-part">
+                                        <ul class="nav tabs" role="tablist">
+                                            <li class="vali">Ver como:</li>
+                                            <li role="presentation" class="active"><a href="#home" aria-controls="home" role="tab" data-toggle="tab"><i class="fa fa-th-large"></i></a></li>
+                                            <li role="presentation"><a href="#profile" aria-controls="profile" role="tab" data-toggle="tab"><i class="fa fa-align-justify"></i></a></li>
+                                        </ul>
+                                    </div>
+                                    <div class="re-shop">
+                                       <div class="sort-by">
+                                            <div class="shop6">
+                                                <label>Acomodar por:</label>
+                                                <select>
+                                                    <option value="">Default sorting</option>
+                                                    <option value="">Sort by popularity</option>
+                                                    <option value="">Sort by average rating</option>
+                                                    <option value="">Sort by newness</option>
+                                                    <option value="">Sort by price: low to high</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="shop5">
+                                            <label>Show :</label>
+                                            <select>
+                                                <option value="">12</option>
+                                                <option value="">24</option>
+                                                <option value="">36</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+
+                              <!-- Tab panes -->
+                                <div class="tab-content">
+
+                                  <div role="tabpanel" class="tab-pane active" id="home">
+                                      <div class="row">
+                                          <div class="shop-tab">
+                                            <?php if (count($store->productos)>0): ?>
+                                              <?php $m = 0; ?>
+                                            <?php for ($i=$start; $i < $limit; $i++): ?>
+                                              <!-- single-product start -->
+                                              <div class="col-md-4 col-lg-4 col-sm-6">
+                                                  <div class="single-product">
+                                                      <div class="product-img">
+                                                          <!--<div class="pro-type alert alert-dismisable">
+                                                              <span>Oferta</span>
+                                                          </div>-->
+                                                          <a href="<?= __ROOT__.'tienda/producto/'.$store->productos[$i]->link ?>">
+                                                              <img src="<?= $store->productos[$i]->imgs[0] ?>" alt="<?= $store->productos[$i]->titulo ?>" />
+                                                              <img class="secondary-image" alt="<?= $store->productos[$i]->titulo ?>" src="<?= $store->productos[$i]->imgs[1] ?>">
+                                                          </a>
+                                                      </div>
+                                                      <div class="product-dsc">
+                                                          <h3><a href="<?= __ROOT__.'tienda/producto/'.$store->productos[$i]->link ?>"><?= $store->productos[$i]->marca.' '.$store->productos[$i]->titulo ?></a></h3>
+                                                          <div class="star-price">
+                                                              <span class="price-left"><?= Articulo::dar_precio($store->productos[$i]->precio) ?></span>
+                                                              <span class="star-right">
+                                                                  <?php for ($s=0; $s < 5; $s++): ?>
+                                                                    <?php if ($store->productos[$i]->rating[0] > $s) : ?>
+                                                                        <i class="fa fa-star" style="color:gold;"></i>
+                                                                    <?php else: ?>
+                                                                      <i class="fa fa-star-o" style="color: #aaa;"></i>
+                                                                    <?php endif ?>
+                                                                  <?php endfor ?>
+                                                              </span>
+                                                          </div>
+                                                      </div>
+                                                      <div class="actions-btn">
+                                                          <a href="#" data-placement="top" data-target="#quick-view" onclick="ver_q(<?= $m++ ?>);" data-trigger="hover" data-toggle="modal" data-original-title="Vista rápida"><i class="fa fa-eye"></i></a>
+                                                          <a data-placement="top" data-toggle="tooltip" href="<?= $store->productos[$i]->link ?>" data-original-title="Añadir a fvoritos"><i class="fa fa-heart"></i></a>
+                                                          <a href="<?= $store->productos[$i]->link ?>" data-toggle="tooltip" data-placement="top" title="Añadir a carro"><i class="fa fa-shopping-cart"></i></a>
+                                                      </div>
+                                                  </div>
+                                              </div>
+                                              <!-- single-product end -->
+                                            <?php endfor ?>
+                                          <?php else: ?>
+                                            <h2> No hay productos </h2>
+                                          <?php endif ?>
+                                          </div>
+                                      </div>
+                                  </div>
+
+                                    <div role="tabpanel" class="tab-pane" id="profile">
+                                        <div class="row">
+                                          <?php if (count($store->productos)>0): ?>
+                                            <? $z = 0; ?>
+                                          <?php for ($i=$start; $i <  $limit; $i++): ?>
+                                           <!-- single-product start -->
+                                            <div class="li-item">
+                                                <div class="col-md-4 col-sm-4">
+                                                    <div class="tb-product-item-inner tb2 pct-last">
+                                                        <div class="pro-type alert">
+                                                            <span>Nuevo</span>
+                                                        </div>
+                                                        <div class="re-img">
+                                                            <a href="<?= __ROOT__.'tienda/producto/'.$store->productos[$i]->link ?>"><img alt="" src="<?= $store->productos[$i]->imgs[0] ?>"></a>
+                                                        </div>
+                                                        <div class="actions-btn">
+                                                            <a data-original-title="Quick View" data-toggle="modal" onclick="ver_q(<?= $z++ ?>);" data-trigger="hover" data-target="#quick-view" data-placement="top" href="#">
+                                                            <i class="fa fa-eye"></i>
+                                                            </a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-8 col-sm-8">
+                                                    <div class="f-fix">
+                                                        <div class="tb-beg">
+                                                            <a href="<?= __ROOT__.'tienda/producto/'.$store->productos[$i]->link ?>"><?= $store->productos[$i]->marca.' '.$store->productos[$i]->titulo. ' ' .($i+1) ?></a>
+                                                        </div>
+                                                        <div class="tb-product-wrap-price-rating">
+                                                            <div class="tb-product-price font-noraure-3">
+                                                                <span class="amount2 ana"><?= Articulo::dar_precio($store->productos[$i]->precio) ?></span>
+
+                                                            </div>
+                                                        </div>
+                                                        <p class="desc"><?= $store->productos[$i]->descripcion[0] ?></p>
+                                                        <div class="last-cart l-mrgn ns">
+                                                            <a class="las4" href="<?= $store->productos[$i]->link ?>">Agregar al carro</a>
+                                                        </div>
+                                                        <div class="tb-product-btn">
+                                                            <a href="<?= $store->productos[$i]->link ?>" id="fav">
+                                                                <i class="fa fa-heart"></i>
+                                                            </a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <!-- single-product end -->
+                                          <?php endfor ?>
+                                        <?php else: ?>
+                                          <h3> No hay productos </h3>
+                                        <?php endif ?>
+                                      </div>
+                                  </div>
+
+                                </div>
+                                <br>
+                                <div class="shop-all-tab-cr shop-bottom">
+                                    <div class="two-part">
+                                        <div class="shop5 page">
+                                            <?= Bootstrap::pager($link,$paginas_totales,$pag,'',$config) ?>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+    </div>
+  </div>
+</section>
+<!-- shop-style  content section end -->
+
+
+<?= $this->insert('overall/overview',array('store'=>$store, 'start'=>$start,'limit'=>$limit)) ?>
+<?= $this->insert('overall/footer') ?>
+<script src="views/app/js/tienda.js"></script>
