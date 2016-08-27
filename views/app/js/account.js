@@ -1,7 +1,7 @@
 var on = true;
 var po = true;
 var error_icon = '<span class="fa fa-exclamation-triangle fa-lg" aria-hidden="true"></span> ',
-    success_icon = '<span class="a fa-check fa-lg" aria-hidden="true"></span> ',
+    success_icon = '<span class="fa fa-check fa-lg" aria-hidden="true"></span> ',
     process_icon = '<span class="fa fa-spinner fa-spin fa-lg" aria-hidden="true"></span> ';
 var nombre = $('#Nombre'), correo = $("#Correo"), apell = $("#Apellido"), new_p = $("#np"), addr = $("#address"), zc = $("#zc");
 
@@ -58,7 +58,10 @@ n = setInterval(function () {
   } else {
     $('#direcc').prop('disabled', true);
   }
-},200);
+  if ($("#pass_").val() != $("#pass_d").val()) {
+     $("#pass_d").val($("#pass_").val());
+  }
+},125);
 
 
 
@@ -196,7 +199,7 @@ if ($("#pass_").val() != '') {
         $(':input').prop( "disabled", false );
         setTimeout(function(){
           location.reload();
-        },500);
+        },1000);
       } else {
         $('#ajax_account_c').html(error_icon  + obj.message);
         $("#ajax_account_c").removeClass('alert-warning');
@@ -222,4 +225,72 @@ if ($("#pass_").val() != '') {
   $('#ajax_account_c').removeClass('hide');
   $(':input').prop( "disabled", false );
 }
+});
+$("#delete_addr").click(function () {
+  bootbox.dialog({
+    message: "Esta acción es permanente, no se van a poder hacer envios si no tiene dirección. ¿Desea continuar?",
+    title: "¿Está seguro?",
+    buttons: {
+      danger: {
+        label: "Si, entiendo el riesgo. Eliminar.",
+        className: "btn-danger",
+        callback: function() {
+          datad = $('#account_form_d').serialize();
+          console.log(datad);
+          $('#ajax_account_c').removeClass('alert-danger');
+          $('#ajax_account_c').removeClass('alert-warning');
+          $('#ajax_account_c').addClass('alert-warning');
+          $("#ajax_account_c").html('<h4>Procesando información</h4>'+ process_icon +' Estamos procesando tus datos por favor espere...');
+          $('#ajax_account_c').removeClass('hide');
+          $(':input').prop( "disabled", true );
+
+          if ($("#pass_").val() != '') {
+
+            $.ajax({
+              type : "POST",
+              url : "api/account",
+              data : datad,
+              success : function(json) {
+                var obj = jQuery.parseJSON(json);
+                if(obj.success == 1) {
+                  $('#ajax_account_c').html('<h4>Exito</h4>' + success_icon + obj.message);
+                  $("#ajax_account_c").removeClass('alert-warning');
+                  $("#ajax_account_c").addClass('alert-success');
+                  $(':input').prop( "disabled", false );
+                  setTimeout(function(){
+                    location.reload();
+                  },500);
+                } else {
+                  $('#ajax_account_c').html(error_icon  + obj.message);
+                  $("#ajax_account_c").removeClass('alert-warning');
+                  $("#ajax_account_c").addClass('alert-danger');
+                  $(':input').prop( "disabled", false );
+                }
+              },
+              error : function() {
+                $('#ajax_account_c').removeClass('alert-danger');
+                $('#ajax_account_c').removeClass('alert-warning');
+                $('#ajax_account_c').addClass('alert-danger');
+                $("#ajax_account_c").html(error_icon  + '<h4>Error interno:</h4> No se pudo completar su petición.');
+                $('#ajax_account_c').removeClass('hide');
+                $(':input').prop( "disabled", false );
+              }
+            });
+
+          } else {
+            $('#ajax_account_c').removeClass('alert-danger');
+            $('#ajax_account_c').removeClass('alert-warning');
+            $('#ajax_account_c').addClass('alert-danger');
+            $("#ajax_account_c").html(error_icon  + 'Debe ingresar su contraseña');
+            $('#ajax_account_c').removeClass('hide');
+            $(':input').prop( "disabled", false );
+          }
+        }
+      },
+      main: {
+        label: "No, sacame de aquí.",
+        className: "btn-primary"
+      }
+    }
+  });
 });

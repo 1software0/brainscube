@@ -252,6 +252,21 @@ final class User extends Models implements OCREND {
               }
               break;
 
+              case 'd':
+              $user = Strings::encrypt_($bd->scape($data['user']));
+              $u = $this->db->select('id,pass','usuarios',"user='$user'",'LIMIT 1');
+
+                if(false != $u and Strings::chash($u[0][1],$data['pass'])) {
+                  $this->db->update('usuarios', array('address' => '', 'zc' => 0),"user = '$user'");
+                  $success = 1;
+                  $message = 'Se ha borrado su dirrección.';
+                  $new = array('0' => '', '1' => '');
+                } else {
+                  $success = 0;
+                  $message = 'La contraseña no coincide';
+                }
+                break;
+
           default:
             $success = 0;
             $messaje = 'No se encontró la petición';
