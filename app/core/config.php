@@ -65,7 +65,7 @@ try {
 define('DATABASE', array(
   'host' => 'localhost',
   'user' => 'root', // softwar8_brain
-  'pass' => '', // m;(LQ1h2{3lN
+  'pass' => '123', // m;(LQ1h2{3lN
   'name' => 'brainscube', // softwar8_brainscube
   'port' => 3306,
   'protocol' => 'TCP',
