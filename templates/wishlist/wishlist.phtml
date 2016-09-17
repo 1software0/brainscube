@@ -11,49 +11,63 @@
                             <table id="shopping-cart-table" class="data-table cart-table">
                                 <tr>
                                     <th class="low1"></th>
-                                    <th>Images</th>
-                                    <th class="low2">Product Name</th>
-                                    <th>Unit Price </th>
-                                    <th>Stock Status</th>
+                                    <th>Imágenes</th>
+                                    <th class="low2">Nombre del producto </th>
+                                    <th>Precio unitario </th>
+                                    <th>Disponibilidad </th>
                                     <th class="low5"></th>
                                 </tr>
+                                <!-- Single product start -->
+                                <?php if (isset($tienda->productos)): ?>
+                                  <?php for ($i=0; $i < count($tienda->productos); $i++) : ?>
+                                  <tr>
+                                      <td class="sop-icon1">
+                                          <a href="#" class="wishlist" data-checked="favorite" data-w="wh" data-product="<?= $tienda->productos[$i]->link ?>">
+                                              <i class="fa fa-times"></i>
+                                          </a>
+                                      </td>
+                                      <td class="sop-cart">
+                                          <a href="tienda/producto/<?= $tienda->productos[$i]->link ?>"><img class="primary-image" alt="" src="<?= $tienda->productos[$i]->imgs[0] ?>"></a>
+                                      </td>
+                                      <td class="sop-cart an-sh">
+                                          <div class="tb-beg">
+                                              <a href="tienda/producto/<?= $tienda->productos[$i]->link ?>"><?= $tienda->productos[$i]->titulo ?></a>
+                                          </div>
+                                          <!--<div class="last-cart l-mrgn">
+                                              <a class="las4" href="#">Quick View</a>
+                                          </div>-->
+                                      </td>
+                                      <td class="sop-cart">
+                                          <div class="tb-product-price font-noraure-3">
+                                              <span class="amount"><?= Articulo::dar_precio($tienda->productos[$i]->precio) ?></span>
+                                          </div>
+                                      </td>
+                                      <td class="cen">
+                                        <?php $d = ($tienda->productos[$i]->stock[0]) ? 'Disponible ' : 'No disponible' ; ?>
+                                          <span class="wishlist-in-stock"><?= $d ?></span>
+                                      </td>
+                                      <td class="sop-cart">
+                                          <div class="last-cart l-mrgn wish">
+                                              <a class="las4 cart" href="#"> Add to Cart</a>
+                                          </div>
+                                      </td>
+                                  </tr>
+                                <?php endfor ?>
+                              <?php else: ?>
                                 <tr>
-                                    <td class="sop-icon1">
-                                        <a href="#">
-                                            <i class="fa fa-times"></i>
-                                        </a>
-                                    </td>
-                                    <td class="sop-cart">
-                                        <a href="#"><img class="primary-image" alt="" src="views/img/products/10.jpg"></a>
-                                    </td>
-                                    <td class="sop-cart an-sh">
-                                        <div class="tb-beg">
-                                            <a href="#">Vintage Shoe</a>
-                                        </div>
-                                        <div class="last-cart l-mrgn">
-                                            <a class="las4" href="#">Quick View</a>
-                                        </div>
-                                    </td>
-                                    <td class="sop-cart">
-                                        <div class="tb-product-price font-noraure-3">
-                                            <span class="amount">$180.00</span>
-                                        </div>
-                                    </td>
-                                    <td class="cen">
-                                        <span class="wishlist-in-stock">In Stock</span>
-                                    </td>
-                                    <td class="sop-cart">
-                                        <div class="last-cart l-mrgn wish">
-                                            <a class="las4" href="#"> Add to Cart</a>
-                                        </div>
+                                    <td colspan="6">
+                                        <h3> No hay productos en tu lista de deseos </h3>
+                                        <p>Pero puedes ir a la <a href="tienda/">tienda</a> para revisar nuestros productos.</p>
                                     </td>
                                 </tr>
+                              <?php endif ?>
+                                <!-- Single product end -->
                                 <tfoot>
                                     <tr>
                                         <td colspan="6">
                                             <div class="yith-wcwl-share">
                                                 <div class="as">
-                                                    <h4 class="yith-wcwl-share-title">Share on:</h4>
+                                                    <h4 class="yith-wcwl-share-title">Comparte en redes sociales:</h4>
                                                 </div>
                                                 <ul>
                                                     <li><a href="#"><img src="views/img/icon-img/facebook.png" alt=""></a></li>
@@ -76,3 +90,4 @@
 <!-- wishlist  content section end -->
 
 <?= $this->insert('overall/footer') ?>
+<script type='text/javascript' src="views/app/js/wishlist.js"></script>

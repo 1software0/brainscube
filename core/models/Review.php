@@ -14,7 +14,7 @@ final class Review extends Models implements OCREND {
         $ses_id = Tkses::getidses();
         $user_id = Tkses::getUserbyTK($_SESSION[SESS_APP_ID]);
         $id_pro = Articulo::getIdbyLink($data['url']);
-        $coment = $this->db->quote(Strings::getBadwords(Strings::bbcode($this->db->scape($data['text']))));
+        $coment = Strings::getBadwords(Strings::bbcode($this->db->scape($data['text'])));
         $date = idate('U', date('U'));
         $rate = $this->db->scape($data["rating"]);
 

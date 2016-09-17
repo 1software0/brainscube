@@ -11,8 +11,10 @@ class wishlistController extends Controllers {
       $user = false;
     }
 
+    $_SESSION['wishlist_wh'] = $_SERVER['REQUEST_URI'];
+
     $wishlist = Wishlist::getUserWishlist();
-    
+
     echo $this->template->render('wishlist/wishlist', array('data_header' => array('url' => '',
     'nombre' => 'Lista de deseos',
     'user' => $user,

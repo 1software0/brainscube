@@ -45,7 +45,7 @@
                                         <div id="amount">
                                             <input type="text" name="first_price"  class="first_price" />
                                             <input type="text" name="last_price" class="last_price"/>
-                                            <a href="<?= $url.$amp.'min='.floor($prices[0] / 100).'&max='.ceil($prices[1] / 100) ?>" id="sea_p" class="button-shop"><i class="fa fa-search search-icon"></i></a>
+                                            <a href="<?= $url.$amp.'min='.floor($prices[0] / 100).'&max='.ceil($prices[1] / 100) ?>" id="sea_p" class=" button button-shop"><i class="fa fa-search search-icon"></i></a>
                                         </div>
 
                                     </div>
@@ -217,7 +217,11 @@
                                                       </div>
                                                       <div class="actions-btn">
                                                           <a href="#" data-placement="top" data-target="#quick-view" onclick="ver_q(<?= $m++ ?>);" data-trigger="hover" data-toggle="modal" data-original-title="Vista rápida"><i class="fa fa-eye"></i></a>
-                                                          <a data-placement="top" data-toggle="tooltip" href="<?= $store->productos[$i]->link ?>" data-original-title="Añadir a fvoritos"><i class="fa fa-heart"></i></a>
+                                                          <?php if ($store->productos[$i]->ch): ?>
+                                                          <a data-placement="top" data-toggle="tooltip" data-checked="favorite" href="#" class="wishlist checked" data-product="<?= $store->productos[$i]->link ?>"  data-original-title="Eliminar de fvoritos"><i class="fa fa-heart"></i></a>
+                                                        <?php else: ?>
+                                                          <a data-placement="top" data-toggle="tooltip" data-checked="no" href="#" class="wishlist" data-product="<?= $store->productos[$i]->link ?>"  data-original-title="Añadir a fvoritos"><i class="fa fa-heart"></i></a>
+                                                        <?php endif ?>
                                                           <a href="<?= $store->productos[$i]->link ?>" data-toggle="tooltip" data-placement="top" title="Añadir a carro"><i class="fa fa-shopping-cart"></i></a>
                                                       </div>
                                                   </div>
@@ -269,9 +273,15 @@
                                                             <a class="las4" href="<?= $store->productos[$i]->link ?>">Agregar al carro</a>
                                                         </div>
                                                         <div class="tb-product-btn">
-                                                            <a href="<?= $store->productos[$i]->link ?>" id="fav">
+                                                          <?php if ($store->productos[$i]->ch): ?>
+                                                            <a href="#" class="wishlist checked" data-checked="favorite" data-product="<?= $store->productos[$i]->link ?>">
                                                                 <i class="fa fa-heart"></i>
                                                             </a>
+                                                          <?php else: ?>
+                                                            <a href="#" class="wishlist" data-checked="no" data-product="<?= $store->productos[$i]->link ?>">
+                                                                <i class="fa fa-heart"></i>
+                                                            </a>
+                                                          <?php endif ?>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -306,3 +316,4 @@
 <?= $this->insert('overall/overview',array('store'=>$store, 'start'=>$start,'limit'=>$limit)) ?>
 <?= $this->insert('overall/footer') ?>
 <script src="views/app/js/tienda.js"></script>
+<script type='text/javascript' src="views/app/js/wishlist.js"></script>

@@ -369,6 +369,4 @@ $( "#slider-range" ).slider({
       }
     });
 
-
-
 })(jQuery);

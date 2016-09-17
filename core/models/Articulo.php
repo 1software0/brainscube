@@ -12,6 +12,7 @@ final class Articulo extends Models implements OCREND {
   public $stock = [false,0];
   public $link = null;
   public $reviews = [];
+  public $ck = false;
 
   public function __construct() {
     parent::__construct();
@@ -21,6 +22,7 @@ final class Articulo extends Models implements OCREND {
     $prod = $this->db->select('*','catalogo',"id='$id'",'LIMIT 1');
 
     $this->titulo = $prod[0]['Nombre'];
+    $idu = (isset($_SESSION[SESS_APP_ID])) ? Tkses::getUserbyTK($_SESSION[SESS_APP_ID]) : 'AAABBBCCC123';
 
     $imags = $this->db->select('url','imagenes',"id_art='$id'");
     for ($i=0; $i < count($imags); $i++) {
@@ -43,7 +45,7 @@ final class Articulo extends Models implements OCREND {
 
     $this->reviews = $this->db->select('*','review',"id='$id'");
 
-
+    $this->ch = ($this->db->select('idp','lista_deseos',"idp = ".$prod[0][0]." and idu = '$idu'",'LIMIT 1') === false) ? false : true ;
 
     /*$sp = $this->db->select('name,value','specs',"id_art='$id'");
     for ($i=0; $i < count($sp); $i++) {

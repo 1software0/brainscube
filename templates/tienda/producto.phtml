@@ -1,6 +1,5 @@
 <?= $this->insert('overall/header',$data_header) ?>
 <?= $this->insert('overall/header_no',$data_info) ?>
-
 <!-- single peoduct content section start -->
 <section class="single-product-area sit">
         <div class="container">
@@ -47,7 +46,7 @@
                                     </p>
                                 </div>
                                 <p class="availability in-stock2">
-                                  <?php $d = ($producto->stock[0]) ? 'En inventario ' : 'No disponible' ; ?>
+                                  <?php $d = ($producto->stock[0]) ? 'Sí' : 'No' ; ?>
                                     <span>Disponible</span><strong>:</strong> <?= $d ?>
                                 </p>
                                 <div class="short-description">
@@ -59,24 +58,27 @@
                                 <div class="add-to-box1">
                                     <div class="add-to-box add-to-box2">
                                         <div class="add-to-cart">
-                                            <div class="input-content">
-                                                <label>Quantity:</label>
-                                                <div class="quantity">
-                                                    <div class="cart-plus-minus">
-                                                      <input type="text" value="0" name="qtybutton" class="cart-plus-minus-box">
-                                                     </div>
-                                                </div>
-                                            </div>
+                                          <div class="input-content">
+                                              <label>Quantity:</label>
+                                              <div class="quantity">
+                                                  <div class="cart-plus-minus">
+                                                    <input type="text" value="0" name="qtybutton" class="cart-plus-minus-box">
+                                                   </div>
+                                              </div>
+                                          </div>
                                             <div class="product-icon">
                                                 <a href="#">
                                                     <i class="fa fa-shopping-cart"></i>
                                                 </a>
-                                                <a href="#">
+                                                <?php if ($producto->ch): ?>
+                                                <a href="#" class="wishlist checked" data-product="<?= $producto->link ?>" data-checked="favorite">
                                                     <i class="fa fa-heart"></i>
                                                 </a>
-                                                <a href="#">
-                                                    <i class="fa fa-retweet"></i>
-                                                </a>
+                                              <?php else: ?>
+                                              <a href="#" class="wishlist" data-product="<?= $producto->link ?>" data-checked="no">
+                                                  <i class="fa fa-heart"></i>
+                                              </a>
+                                              <?php endif ?>
                                             </div>
                                         </div>
                                     </div>
@@ -104,6 +106,11 @@
                                         <form class="form-horizontal" id="form_review">
                                             <div id="review">
                                                 <table class="table table-striped table-bordered">
+                                                  <?php if (!$producto->reviews) : ?>
+                                                  <td colspan="3">
+                                                    No hay ningúna reseña del producto.
+                                                  </td>
+                                                <?php else: ?>
                                                   <?php for ($i=0; $i < count($producto->reviews); $i++) : ?>
                                                     <tr>
                                                         <td style="width: 50%;">
@@ -130,6 +137,7 @@
                                                         </td>
                                                     </tr>
                                                   <?php endfor ?>
+                                                <?php endif ?>
                                                 </table>
 
                                             </div>
@@ -269,3 +277,4 @@
 <script src="https://www.google.com/recaptcha/api.js?onload=loadCaptcha&render=explicit" async defer></script>
 <?= $this->insert('overall/footer') ?>
 <script type='text/javascript' src="views/app/js/producto.js"></script>
+<script type='text/javascript' src="views/app/js/wishlist.js"></script>

@@ -75,8 +75,8 @@ define('DATABASE', array(
 //------------------------------------------------
 # PayPal SDK
 define('PAYPAL_MODE','sandbox'); # sandbox ó live
-define('PAYPAL_CLIENT_ID','');
-define('PAYPAL_CLIENT_SECRET','');
+define('PAYPAL_CLIENT_ID','AZrlxXR1aa1lZE9VNw0mIOMddu2m_ILJm7WuFR9A6lTfh9BONUP94HKgNfwTrmPDTuJjhyc5uU4213ef');
+define('PAYPAL_CLIENT_SECRET','EMjSSPorzoeBbqTOTclpxL7Qut3Bn4yCxwJuBakR14hdCgNrju_4-akwLJ5eMmw726yhxYH-sKdbdcX2');
 
 //------------------------------------------------
 

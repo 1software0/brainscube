@@ -1,36 +1,64 @@
-$('#wishlist').click(function(){
+$('a.wishlist').click(function (event){
 
-  var error_icon = '<span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span> ',
-      success_icon = '<span class="glyphicon glyphicon-ok" aria-hidden="true"></span> ',
-      process_icon = '<span class="fa fa-spinner fa-spin" aria-hidden="true"></span> ';
+  event.preventDefault();
 
-  $('#ajax_wishlist').removeClass('alert-danger');
-  $('#ajax_wishlist').removeClass('alert-warning');
-  $('#ajax_wishlist').addClass('alert-warning');
-  $("#ajax_wishlist").html(process_icon  + 'Procesando por favor espere...');
-  $('#ajax_wishlist').removeClass('hide');
+  var error_icon = '<span class="fa fa-exclamation-triangle fa-lg" aria-hidden="true"></span> ',
+      success_icon = '<span class="fa fa-check fa-lg" aria-hidden="true"></span> ',
+      process_icon = '<span class="fa fa-spinner fa-spin fa-lg" aria-hidden="true"></span> ',
+      whis_o = $(this),
+      link = whis_o.attr("data-product"),
+      whis_i = $("[data-product='"+link+"']");
 
+  if (whis_o.attr("data-checked") == "favorite") {
+    wh = "delete";
+  } else {
+    wh = "add";
+  }
+
+  whis_o.html('<i class="fa fa-spinner fa-spin"></i>');
+  //bootbox.alert(link + " " + wh + " " + whis_o.attr("data-checked"));
   $.ajax({
     type : "POST",
-    url : "api/wishlist",
-    data : $('#wishlist_form').serialize(),
+    url : "api/wishlist"+wh,
+    data : {'idp': whis_o.attr('data-product')},
     success : function(json) {
       var obj = jQuery.parseJSON(json);
       if(obj.success == 1) {
-        $('#ajax_wishlist').html(success_icon + obj.message);
-        $("#ajax_wishlist").removeClass('alert-warning');
-        $("#ajax_wishlist").addClass('alert-success');
-        setTimeout(function(){
+        if (wh == "add") {
+            whis_i.addClass("checked");
+            whis_i.attr("data-checked", 'favorite');
+            whis_i.attr("data-original-title", 'Eliminar de fvoritos');
+        } else {
+          if (whis_o.attr("data-wh") == "undefined") {
+            whis_i.removeClass("checked");
+            whis_i.attr("data-checked", 'no');
+            whis_i.attr("data-original-title", 'Añadir a fvoritos');
+        } else {
           location.reload();
-        },1000);
+        }
+        }
+        whis_o.html('<i class="fa fa-heart"></i>');
+        bootbox.alert(obj.message);
       } else {
-        $('#ajax_wishlist').html(error_icon  + obj.message);
-        $("#ajax_wishlist").removeClass('alert-warning');
-        $("#ajax_wishlist").addClass('alert-danger');
+        bootbox.dialog({
+        message: obj.message,
+        title: error_icon + "Error",
+        buttons: {
+          main: {
+            label: "Ok",
+            className: "btn-primary",
+            callback: function() {
+              whis_o.html('<i class="fa fa-heart"></i>');
+            }
+          }
+        }
+      });
       }
     },
     error : function() {
+      whis_o.html('<i class="fa fa-heart"></i>');
       window.alert('#wishlist ERORR');
     }
   });
+
 });

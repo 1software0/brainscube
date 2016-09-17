@@ -2426,6 +2426,15 @@ a img.primary-image {
     color: #297e29;
     font-size: 14px;
 }
+a.wishlist.checked {
+    color: #ef6644!important;
+    font-size: 14px;
+}
+a.wishlist.checked:hover {
+    color: #fff!important;
+    background-color: #ef6644;
+    font-size: 14px;
+}
 .last-cart.l-mrgn.wish {
     float: inherit;
 }

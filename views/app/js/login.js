@@ -1,7 +1,7 @@
 $('#login').click(function (){
 
-  var error_icon = '<i class="fa fa-check" aria-hidden="true"></i> ',
-      success_icon = '<span class="a fa-check fa-lg" aria-hidden="true"></span> ',
+  var error_icon = '<i class="fa fa-exclamation-triangle fa-lg" aria-hidden="true"></i> ',
+      success_icon = '<span class="fa fa-check" aria-hidden="true"></span> ',
       process_icon = '<span class="fa fa-spinner fa-spin fa-lg" aria-hidden="true"></span> ';
 
   $('#ajax_login').removeClass('alert-danger');

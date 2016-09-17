@@ -65,18 +65,6 @@ $app->post('/lostpass',function($request, $response) {
 
 	return $response;
 });
-
-/**
-	* ¿que hace (el modelo que se invoca desde aqui)?
-	* @return ¿que retorna?, ¡un json por favor!
-*/
-$app->post('/store',function($request, $response) {
-
-	$model = new Store;
-	$response->withJson($model->Foo($_POST));
-
-	return $response;
-});
 /**
 	* ¿que hace (el modelo que se invoca desde aqui)?
 	* @return ¿que retorna?, ¡un json por favor!
@@ -91,7 +79,7 @@ $app->post('/tienda',function($request, $response) {
 
 /**
 	* ¿que hace (el modelo que se invoca desde aqui)?
-	* @return ¿que retorna?, ¡un json por favor! 
+	* @return ¿que retorna?, ¡un json por favor!
 */
 $app->post('/social',function($request, $response) {
 
@@ -102,7 +90,7 @@ $app->post('/social',function($request, $response) {
 });
 /**
 	* ¿que hace (el modelo que se invoca desde aqui)?
-	* @return ¿que retorna?, ¡un json por favor! 
+	* @return ¿que retorna?, ¡un json por favor!
 */
 $app->post('/review',function($request, $response) {
 
@@ -112,12 +100,34 @@ $app->post('/review',function($request, $response) {
 	return $response;
 });
 /**
+	* Agrega a wishlist del usuario
+	* @return Regresa un JSON de el estado de la peticion
+*/
+$app->post('/wishlistadd',function($request, $response) {
+
+	$model = new Wishlist;
+	$response->withJson($model->Agregar($_POST));
+
+	return $response;
+});
+/**
+	* Elimina un producto de wishlist del usuario
+	* @return Regresa un JSON de el estado de la peticion
+*/
+$app->post('/wishlistdelete',function($request, $response) {
+
+	$model = new Wishlist;
+	$response->withJson($model->Eliminar($_POST));
+
+	return $response;
+});
+/**
 	* ¿que hace (el modelo que se invoca desde aqui)?
-	* @return ¿que retorna?, ¡un json por favor! 
+	* @return ¿que retorna?, ¡un json por favor!
 */
 $app->post('/wishlist',function($request, $response) {
 
-	$model = new Wishlist;
+
 	$response->withJson($model->Foo($_POST));
 
 	return $response;
