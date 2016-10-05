@@ -9,7 +9,14 @@ Son los archivos necesarios para poder desarrollar con el framework [Ocrend Fram
 
 Ubuntu
 
-- Kernel de virtualbox 
+```
+vBoxManage --version
+```
+Si te pide una update del kernel
+
+```
+sudo /sbin/vboxconfig
+```
 
 ## Instalación:
 Hacer fork del proyecto.
