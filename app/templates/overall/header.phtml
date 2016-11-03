@@ -70,7 +70,6 @@
                   <li><a href="<?= __ROOT__ ?>wishlist/"><i class="fa fa-heart"></i>Favoritos</a></li>
                   <?php if ($carro) {
                   ?>
-                  <li><a href="<?= __ROOT__ ?>tienda/carro/"><i class="fa fa-shopping-cart"></i>Mi carro</a></li>
                   <li><a href="<?= __ROOT__ ?>tienda/checkout/"><i class="fa fa-usd"></i>Procesar</a></li>
                   <?php
                   }
@@ -79,7 +78,7 @@
                   <?php } else {
                     if ($carro) {
                     ?>
-                    <li><a href="<?= __ROOT__ ?>tienda/carro/"><i class="fa fa-shopping-cart"></i>Mi carro</a></li>
+                    <li><a href="<?= __ROOT__ ?>tienda/checkout/"><i class="fa fa-usd"></i>Procesar</a></li>
                     <?php
                     }
                     ?>
@@ -360,9 +359,38 @@
                                               </div>
                                             </form>
                                         </li>
-                                        <li><a href="tienda/carro"><i class="fa fa-shopping-cart"></i><span class="color1"><?php #echo cosas_carro(); ?></span></a>
+                                        <?php $count_cart = ($carro != false) ? count($carro->productos->index) : 0 ; ?>
+                                        <li><a href="cart.html"><i class="fa fa-shopping-cart"></i><span class="color1"> <?=$count_cart?></span></a>
                                             <ul class="drop-cart">
-
+                                              <?php if ($count_cart > 0 ) : ?>
+                                                <?php for ($i=0; $i < $count_cart; $i++) : ?>
+                                                  <li>
+                                                      <a href="cart.html"><img src="<?= $carro->productos->datos[$i]->imagen?>" alt="<?= $carro->productos->datos[$i]->titulo ?>" width="43" height="62"/></a>
+                                                      <div class="add-cart-text">
+                                                          <p><a href="#"><?= $carro->productos->datos[$i]->titulo ?></a></p>
+                                                          <p><?= Articulo::dar_precio($carro->productos->datos[$i]->precio) ?></p>
+                                                          <span>Color : <?= $carro->productos->datos[$i]->color ?></span>
+                                                      </div>
+                                                      <div class="pro-close">
+                                                          <i class="pe-7s-close"></i>
+                                                      </div>
+                                                  </li>
+                                                <?php endfor ?>
+                                                <li class="total-amount clearfix">
+                                                    <span class="floatleft">total</span>
+                                                    <span class="floatright"><strong>= <?= Articulo::dar_precio($carro->total) ?></strong></span>
+                                                </li>
+                                                <li>
+                                                    <div class="goto text-center">
+                                                        <a href="/carro"><strong>Ver el carrito &nbsp;<i class="pe-7s-angle-right"></i></strong></a>
+                                                    </div>
+                                                </li>
+                                                <li class="checkout-btn text-center">
+                                                    <a href="/carro/checkout">Finalizar pedido</a>
+                                                </li>
+                                              <?php else: ?>
+                                                <li>No hay ningún producto en el carrito.</li>
+                                              <?php endif ?>
                                             </ul>
                                         </li>
                                     </ul>

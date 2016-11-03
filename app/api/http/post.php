@@ -122,13 +122,24 @@ $app->post('/wishlistdelete',function($request, $response) {
 	return $response;
 });
 /**
-	* ¿que hace (el modelo que se invoca desde aqui)?
-	* @return ¿que retorna?, ¡un json por favor!
+	* Añadir al carro
+	* @return un json con los datos de la operacion
 */
-$app->post('/wishlist',function($request, $response) {
+$app->post('/carroadd',function($request, $response) {
 
+	$model = new Carro;
+	$response->withJson($model->agregar_producto($_POST));
 
-	$response->withJson($model->Foo($_POST));
+	return $response;
+});
+/**
+	* Quitar del carrito
+	* @return un json con los datos de la operacion
+*/
+$app->post('/carrodelete',function($request, $response) {
+
+	$model = new Carro;
+	$response->withJson($model->quitar_producto($_POST));
 
 	return $response;
 });

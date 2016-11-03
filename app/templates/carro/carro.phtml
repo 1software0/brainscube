@@ -14,24 +14,25 @@
                                     <th>Imágen</th>
                                     <th class="low2">Nombre del producto </th>
                                     <th>Precio unitario </th>
-                                    <th>Disponibilidad </th>
-                                    <th class="low5"></th>
+                                    <th>cantidad </th>
+                                    <th class="low5">Total</th>
                                 </tr>
                                 <!-- Single product start -->
                                 <?php if (isset($tienda->productos)): ?>
-                                  <?php for ($i=0; $i < count($tienda->productos); $i++) : ?>
+                                  <?php $d_button = ""; ?>
+                                  <?php for ($i=0; $i < count($tienda->productos->index); $i++) : ?>
                                   <tr>
                                       <td class="sop-icon1">
-                                          <a href="#" class="wishlist" data-checked="favorite" data-w="wh" data-product="<?= $tienda->productos[$i]->link ?>">
+                                          <a href="#" class="carro" data-checked="favorite" data-w="wh" data-product="<?= $tienda->productos->datos[$i]->link ?>">
                                               <i class="fa fa-times"></i>
                                           </a>
                                       </td>
                                       <td class="sop-cart">
-                                          <a href="tienda/producto/<?= $tienda->productos[$i]->link ?>"><img class="primary-image" alt="" src="<?= $tienda->productos[$i]->imgs[0] ?>"></a>
+                                          <a href="tienda/producto/<?= $tienda->productos->datos[$i]->link ?>"><img class="primary-image" alt="" src="<?= $tienda->productos->datos[$i]->imagen ?>"></a>
                                       </td>
                                       <td class="sop-cart an-sh">
                                           <div class="tb-beg">
-                                              <a href="tienda/producto/<?= $tienda->productos[$i]->link ?>"><?= $tienda->productos[$i]->titulo ?></a>
+                                              <a href="tienda/producto/<?= $tienda->productos->datos[$i]->link ?>"><?= $tienda->productos->datos[$i]->titulo ?></a>
                                           </div>
                                           <!--<div class="last-cart l-mrgn">
                                               <a class="las4" href="#">Quick View</a>
@@ -39,24 +40,22 @@
                                       </td>
                                       <td class="sop-cart">
                                           <div class="tb-product-price font-noraure-3">
-                                              <span class="amount"><?= Articulo::dar_precio($tienda->productos[$i]->precio) ?></span>
+                                              <span class="amount"><?= Articulo::dar_precio($tienda->productos->datos[$i]->precio) ?></span>
                                           </div>
                                       </td>
                                       <td class="cen">
-                                        <?php $d = ($tienda->productos[$i]->stock[0]) ? 'Disponible ' : 'No disponible' ; ?>
-                                          <span class="wishlist-in-stock"><?= $d ?></span>
+                                        <?= $tienda->productos->cantidad[$i] ?>
                                       </td>
                                       <td class="sop-cart">
-                                          <div class="last-cart l-mrgn wish">
-                                              <a class="las4 cart" href="#"> Add to Cart</a>
-                                          </div>
+                                          <?= Articulo::dar_precio($tienda->productos->cantidad[$i]*$tienda->productos->datos[$i]->precio) ?>
                                       </td>
                                   </tr>
                                 <?php endfor ?>
                               <?php else: ?>
+                                <?php $d_button = "disabled"; ?>
                                 <tr>
                                     <td colspan="6">
-                                        <h3> No hay productos en tu lista de deseos </h3>
+                                        <h3> No hay productos en tu carrito de compra </h3>
                                         <p>Pero puedes ir a la <a href="tienda/">tienda</a> para revisar nuestros productos.</p>
                                     </td>
                                 </tr>
@@ -64,20 +63,8 @@
                                 <!-- Single product end -->
                                 <tfoot>
                                     <tr>
-                                        <td colspan="6">
-                                            <div class="yith-wcwl-share">
-                                                <div class="as">
-                                                    <h4 class="yith-wcwl-share-title">Comparte en redes sociales:</h4>
-                                                </div>
-                                                <ul>
-                                                    <li><a href="#"><img src="views/img/icon-img/facebook.png" alt=""></a></li>
-                                                    <li><a href="#"><img src="views/img/icon-img/twitter.png" alt=""></a></li>
-                                                    <li><a href="#"><img src="views/img/icon-img/pinterest.jpg" alt=""></a></li>
-                                                    <li><a href="#"><img src="views/img/icon-img/googleplus.jpg" alt=""></a></li>
-                                                    <li><a href="#"><img src="views/img/icon-img/email.jpg" alt=""></a></li>
-                                                </ul>
-                                            </div>
-                                        </td>
+                                        <td colspan="4"></td>
+                                        <td colspan="2"><button class="btn btn-primary" <?= $d_button ?>>Hacer pedido</button></td>
                                     </tr>
                                 </tfoot>
                             </table>
@@ -90,4 +77,3 @@
 <!-- wishlist  content section end -->
 
 <?= $this->insert('overall/footer') ?>
-<script type='text/javascript' src="views/app/js/wishlist.js"></script>

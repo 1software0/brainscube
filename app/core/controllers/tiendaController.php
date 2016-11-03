@@ -14,9 +14,14 @@ class tiendaController extends Controllers {
     $token = Tkses::GenerarSID(rand(101010101,238269867));
     $_SESSION['token'] = $token;
 
+    //consiguendo el carrito de compras si hay
+    $carro = Carro::load_cart_details();
+
     //llamando helpers y creando rutas
     Helper::load('Bootstrap');
     Helper::load('Strings');
+    Helper::load("Arrays");
+
     $this->route->setRoute('/pag','int');
     $this->route->setRoute('/producto','alphanumeric');
 
@@ -78,7 +83,7 @@ class tiendaController extends Controllers {
       echo $this->template->render('tienda/tienda', array('data_header' => array('url' => '?continue='.$ru,
       'nombre' => 'Tienda',
       'user' => $user,
-      'carro' => false
+      'carro' => $carro
     ),
       'data_info' => array(
         'nombre' => 'tienda',
@@ -113,7 +118,7 @@ class tiendaController extends Controllers {
           echo $this->template->render('tienda/producto', array('data_header' => array('url' => '?continue='.$ru,
           'nombre' => 'Tienda',
           'user' => $user,
-          'carro' => false
+          'carro' => $carro
         ),
           'data_info' => array(
             'nombre' => $art->titulo,
@@ -156,7 +161,7 @@ class tiendaController extends Controllers {
       echo $this->template->render('tienda/tienda', array('data_header' => array('url' => '?continue='.$ru,
       'nombre' => 'Tienda',
       'user' => $user,
-      'carro' => false
+      'carro' => $carro
     ),
       'data_info' => array(
         'nombre' => 'tienda',

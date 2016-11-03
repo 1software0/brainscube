@@ -2435,6 +2435,15 @@ a.wishlist.checked:hover {
     background-color: #ef6644;
     font-size: 14px;
 }
+a.carrito.checked {
+    color: #ef6644!important;
+    font-size: 14px;
+}
+a.carrito.checked:hover {
+    color: #fff!important;
+    background-color: #ef6644;
+    font-size: 14px;
+}
 .last-cart.l-mrgn.wish {
     float: inherit;
 }

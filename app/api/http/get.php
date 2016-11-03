@@ -24,3 +24,15 @@ $app->get('/search',function($request, $response) {
 
 	return $response;
 });
+
+/**
+	* Ve los articulos del carrito
+	* @return un json con los datos del carrito
+*/
+$app->get('/products_car',function($request, $response) {
+
+	$model = new Carro;
+	$response->withJson($model->get_car_products($_GET));
+
+	return $response;
+});

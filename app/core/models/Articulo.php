@@ -13,6 +13,7 @@ final class Articulo extends Models implements OCREND {
   public $link = null;
   public $reviews = [];
   public $ck = false;
+  public $on_cest = false;
 
   public function __construct() {
     parent::__construct();
@@ -46,6 +47,8 @@ final class Articulo extends Models implements OCREND {
     $this->reviews = $this->db->select('*','review',"id='$id'");
 
     $this->ch = ($this->db->select('idp','lista_deseos',"idp = ".$prod[0][0]." and idu = '$idu'",'LIMIT 1') === false) ? false : true ;
+
+    $this->on_cest = (isset($_SESSION["carro"]) && isset($_SESSION["carro"]->productos_index[$prod[0]['link']])) ? true : false;
 
     /*$sp = $this->db->select('name,value','specs',"id_art='$id'");
     for ($i=0; $i < count($sp); $i++) {

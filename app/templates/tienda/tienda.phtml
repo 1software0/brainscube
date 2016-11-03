@@ -12,7 +12,7 @@
         <div class="col-md-4 col-lg-3 col-sm-12">
                     <div class="all-shop-sidebar">
                         <div class="top-shop-sidebar">
-                            <h3 class="wg-title">SHOP BY</h3>
+                            <h3 class="wg-title">Ordena por </h3>
                         </div>
                         <div class="shop-one">
                             <h3 class="wg-title2">Categories</h3>
@@ -158,7 +158,7 @@
                                     <div class="re-shop">
                                        <div class="sort-by">
                                             <div class="shop6">
-                                                <label>Acomodar por:</label>
+                                                <label>Ordenar por:</label>
                                                 <select>
                                                     <option value="">Default sorting</option>
                                                     <option value="">Sort by popularity</option>
@@ -169,7 +169,7 @@
                                             </div>
                                         </div>
                                         <div class="shop5">
-                                            <label>Show :</label>
+                                            <label>Mostrar: </label>
                                             <select>
                                                 <option value="">12</option>
                                                 <option value="">24</option>
@@ -222,7 +222,21 @@
                                                         <?php else: ?>
                                                           <a data-placement="top" data-toggle="tooltip" data-checked="no" href="#" class="wishlist" data-product="<?= $store->productos[$i]->link ?>"  data-original-title="Añadir a fvoritos"><i class="fa fa-heart"></i></a>
                                                         <?php endif ?>
-                                                          <a href="<?= $store->productos[$i]->link ?>" data-toggle="tooltip" data-placement="top" title="Añadir a carro"><i class="fa fa-shopping-cart"></i></a>
+                                                        <?php if ($data_header["carro"] != false): ?>
+                                                            <?php $data_busqueda = (in_array($store->productos[$i]->link,$data_header["carro"]->productos->index)) ? true : false ?>
+                                                            <?php if ($data_busqueda) : ?>
+                                                              <?php $cart = 'del' ?>
+                                                            <?php else: ?>
+                                                              <?php $cart = 'add' ?>
+                                                            <?php endif ?>
+                                                          <?php else: ?>
+                                                            <?php $cart = 'add' ?>
+                                                          <?php endif ?>
+                                                          <?php if ($cart == 'add'): ?>
+                                                            <a href="#" class="carrito" data-toggle="tooltip" data-placement="top" title="Añadir a carro" data-checked="<?= $cart ?>" data-product="<?= $store->productos[$i]->link ?>"><i class="fa fa-shopping-cart"></i></a>
+                                                          <?php else: ?>
+                                                            <a href="#" class="carrito checked" data-toggle="tooltip" data-placement="top" title="Eliminar del carro" data-checked="<?= $cart ?>" data-product="<?= $store->productos[$i]->link ?>"><i class="fa fa-shopping-cart"></i></a>
+                                                        <?php endif ?>
                                                       </div>
                                                   </div>
                                               </div>
@@ -244,9 +258,9 @@
                                             <div class="li-item">
                                                 <div class="col-md-4 col-sm-4">
                                                     <div class="tb-product-item-inner tb2 pct-last">
-                                                        <div class="pro-type alert">
+                                                        <!--<div class="pro-type alert">
                                                             <span>Nuevo</span>
-                                                        </div>
+                                                        </div>-->
                                                         <div class="re-img">
                                                             <a href="<?= __ROOT__.'tienda/producto/'.$store->productos[$i]->link ?>"><img alt="" src="<?= $store->productos[$i]->imgs[0] ?>"></a>
                                                         </div>
@@ -270,7 +284,7 @@
                                                         </div>
                                                         <p class="desc"><?= $store->productos[$i]->descripcion[0] ?></p>
                                                         <div class="last-cart l-mrgn ns">
-                                                            <a class="las4" href="<?= $store->productos[$i]->link ?>">Agregar al carro</a>
+                                                            <a class="las4" href="#" data-product="<?= $store->productos[$i]->link ?>" data-checked="<?= $cart ?>">Agregar al carro</a>
                                                         </div>
                                                         <div class="tb-product-btn">
                                                           <?php if ($store->productos[$i]->ch): ?>
@@ -316,4 +330,3 @@
 <?= $this->insert('overall/overview',array('store'=>$store, 'start'=>$start,'limit'=>$limit)) ?>
 <?= $this->insert('overall/footer') ?>
 <script src="views/app/js/tienda.js"></script>
-<script type='text/javascript' src="views/app/js/wishlist.js"></script>
