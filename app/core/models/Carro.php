@@ -157,18 +157,7 @@ final class Carro extends Models implements OCREND {
       $message = "No tiene un carrito todavía.";
     }
     return array('success' => $success, 'message' => $message, 'new_carro' => json_encode($carro));
-  }
-
-  /*
-   * Actualiza los precios y las cantidades del carrito
-   *
-   *
-   *
-   */
-  final public function procesar_pedido() {
-
-  }
-
+  } 
   /*
    *
    *
