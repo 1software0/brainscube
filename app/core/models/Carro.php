@@ -135,9 +135,9 @@ final class Carro extends Models implements OCREND {
 
         $carro->total += -1*($carro->productos->datos[$i]->precio*$carro->productos->cantidad[$i]);
 
-        $carro->productos->cantidad[$i] = "";
-        $carro->productos->datos[$i] = "";
-        $carro->productos->index[$i] = "";
+        unset($carro->productos->cantidad[$i]);
+        unset($carro->productos->datos[$i]);
+        unset($carro->productos->index[$i]);
 
         $_SESSION["carro"] = json_encode($carro);
 
@@ -157,7 +157,7 @@ final class Carro extends Models implements OCREND {
       $message = "No tiene un carrito todavía.";
     }
     return array('success' => $success, 'message' => $message, 'new_carro' => json_encode($carro));
-  } 
+  }
   /*
    *
    *

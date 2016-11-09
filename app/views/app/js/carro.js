@@ -1,4 +1,4 @@
-$('a.carrito').click(function (event){
+$('.carrito').click(function (event){
 
   event.preventDefault();
 
@@ -33,16 +33,12 @@ $('a.carrito').click(function (event){
             carr_i.attr("data-checked", 'del');
             carr_i.attr("data-original-title", 'Eliminar del carro');
         } else {
-          if (carr_o.attr("data-ca") == "undefined") {
-            carr_i.removeClass("checked");
-            carr_i.attr("data-checked", 'add');
-            carr_i.attr("data-original-title", 'Añadir a carro');
-          } else {
-            location.reload();
-          }
+          carr_i.removeClass("checked");
+          carr_i.attr("data-checked", 'add');
+          carr_i.attr("data-original-title", 'Añadir a carro');
         }
+        $(".drop-cart");
         carr_o.html('<i class="fa fa-shopping-cart"></i>');
-        carro_inner
         bootbox.alert(obj.message);
       } else {
         bootbox.dialog({
