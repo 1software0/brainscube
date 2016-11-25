@@ -131,7 +131,6 @@ final class Carro extends Models implements OCREND {
     if (in_array($li,$carro->productos->index) > 0 and $carro != false) {
 
       if (count($carro->productos->index) >= 1) {
-        $i = in_array($li,$carro->productos->index);
 
         $carro->total += -1*($carro->productos->datos[$i]->precio*$carro->productos->cantidad[$i]);
 
