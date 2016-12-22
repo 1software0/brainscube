@@ -10,22 +10,11 @@ class homeController extends Controllers {
       $user = false;
     }
 
-    $bd = new Conexion();
-    //slider
-    $n = $bd->select('idI, desc_2', 'slider');
+    //haciendo conexion a la base de datos y recopilando sliders
+    $bd    = new Conexion();
+    $images = $bd->select('url','imagenes', 'id in (select idI from slider) UNION select desc_2 from slider');
+    $n      = $bd->select('desc_2', 'slider');
     $number = count($n);
-
-
-
-    if ($number > 0) {
-      for ($i=0; $i < count($n); $i++) {
-        $src = $bd->select('url','imagenes',"id='".$n[$i][0]."'",'LIMIT 1');
-        $n[$i][0] = $src[0][0];
-      }
-    }
-
-
-
 
     echo $this->template->render('home/home', array ('data_header' =>array('url' => '',
      'nombre' => 'Home',
@@ -33,7 +22,7 @@ class homeController extends Controllers {
      'carro' => false
    ),
    'number'=> $number,
-   'data_slider' => array('n' => $n)
+   'data_slider' => array('n' => $n, 'images' => $images)
    )
    );
 
