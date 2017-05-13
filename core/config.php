@@ -65,7 +65,7 @@ try {
 define('DATABASE', array(
   'host' => 'localhost',
   'user' => 'root', // softwar8_brain
-  'pass' => '', // m;(LQ1h2{3lN //%4040Bd2/6!
+  'pass' => 'toor', // m;(LQ1h2{3lN //%4040Bd2/6!
   'name' => 'brainscube', // softwar8_brainscube
   'port' => 3306,
   'protocol' => 'TCP',
@@ -81,7 +81,7 @@ define('PAYPAL_CLIENT_SECRET','');
 //------------------------------------------------
 
 # Constantes fundamentales
-define('URL', 'http://brainscube.local/');
+define('URL', 'http://brainscube.com/');
 define('APP', 'Brains Store');
 define('SESS_APP_ID', 'app_id');
 define('APP_COPY','Copyright &copy; ' . date('Y',time()) . ' Brains Cube.');
